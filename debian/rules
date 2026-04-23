@@ -7,7 +7,7 @@ override_dh_installsystemd:
 	dh_installsystemd --name=urm
 
 override_dh_auto_install:
-    dh_auto_install
+    dh_auto_install -- DESTDIR=$(CURDIR)/debian/tmp
     mkdir -p debian/userspace-resource-manager/usr/lib/systemd/system
     if [ -f debian/userspace-resource-manager/usr/lib/${DEB_HOST_MULTIARCH}/systemd/system/urm.service ]; then \
       mv debian/userspace-resource-manager/usr/lib/${DEB_HOST_MULTIARCH}/systemd/system/urm.service \
