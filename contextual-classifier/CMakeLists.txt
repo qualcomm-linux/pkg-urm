@@ -20,6 +20,7 @@ set_target_properties(ContextualClassifier PROPERTIES
 )
 
 target_include_directories(ContextualClassifier PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Include)
+target_compile_options(ContextualClassifier PRIVATE -fpermissive)
 
 # floret detection and USE_FLORET macro using pkg-config
 option(ENABLE_FLORET "Build ML inference with floret support" OFF)
