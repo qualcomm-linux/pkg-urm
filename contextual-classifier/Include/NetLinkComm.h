@@ -4,9 +4,9 @@
 #ifndef NETLINK_COMM_H
 #define NETLINK_COMM_H
 
-#define __KERNEL__
+extern "C" {
 #include <linux/cn_proc.h>
-#undef __KERNEL__
+}
 
 #include <linux/connector.h>
 #include <linux/netlink.h>
