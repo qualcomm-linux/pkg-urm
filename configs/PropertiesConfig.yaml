@@ -1,0 +1,48 @@
+# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+PropertyConfigs:
+  - Name: resource_tuner.maximum.concurrent.requests
+    Value: "60"
+
+  - Name: resource_tuner.maximum.resources.per.request
+    Value: "20"
+
+  - Name: resource_tuner.thread_pool.desired_capacity
+    Value: "5"
+  
+  - Name: resource_tuner.thread_pool.max_scaling_capacity
+    Value: "10"
+
+  - Name: resource_tuner.pulse.duration
+    Value: "23000"
+
+  - Name: resource_tuner.garbage_collection.duration
+    Value: "1000"
+
+  - Name: resource_tuner.garbage_collection.batch_size
+    Value: "20"
+
+  - Name: resource_tuner.rate_limiter.delta
+    Value: "5"
+
+  - Name: resource_tuner.penalty.factor
+    Value: "2.0"
+
+  - Name: resource_tuner.reward.factor
+    Value: "0.4"
+
+  - Name: urm.logging.level
+    # Possible values: DEBUG, INFO, WARN, ERROR.
+    Value: "DEBUG" # Anything and everything level DEBUG and above.
+
+    # Only log messages of the exact severity as specified in "urm.logging.level"
+  - Name: urm.logging.level.exact
+    Value: "false"
+
+  - Name: urm.logging.redirect_to
+    # Possible values: FILE, SYSLOG, FTRACE, LOGCAT.
+    Value: "SYSLOG"
+
+  - Name: urm.extensions_lib.count
+    Value: "6"

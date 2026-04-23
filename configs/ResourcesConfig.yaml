@@ -1,0 +1,409 @@
+# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# Note: High and Low thresholds to config values should be specified in custom Resource Configs.
+# For attribute information, refer: https://qualcomm.github.io/userspace-resource-manager/index.html#autotoc_md40
+
+ResourceConfigs:
+  - ResType: "0x01"
+    ResID: "0x0000"
+    Name: "RES_CPU_DMA_LATENCY"
+    Path: "/dev/cpu_dma_latency"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x01"
+    ResID: "0x0001"
+    Name: "RES_PM_QOS_LATENCY"
+    Path: "/sys/devices/system/cpu/cpu%d/power/pm_qos_resume_latency_us"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "core"
+
+  - ResType: "0x01"
+    ResID: "0x0002"
+    Name: "RES_CPU_IDLE_DISABLE_ST0"
+    Path: "/sys/devices/system/cpu/cpu%d/cpuidle/state0/disable"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "core"
+
+  - ResType: "0x01"
+    ResID: "0x0003"
+    Name: "RES_CPU_IDLE_DISABLE_ST1"
+    Path: "/sys/devices/system/cpu/cpu%d/cpuidle/state1/disable"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "core"
+
+  - ResType: "0x01"
+    ResID: "0x0004"
+    Name: "RES_CPU_IDLE_DISABLE_ST2"
+    Path: "/sys/devices/system/cpu/cpu%d/cpuidle/state2/disable"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "core"
+
+  - ResType: "0x03"
+    ResID: "0x0000"
+    Name: "RES_SCHED_UTIL_CLAMP_MIN"
+    Path: "/proc/sys/kernel/sched_util_clamp_min"
+    Supported: true
+    HighThreshold: 1024
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x03"
+    ResID: "0x0001"
+    Name: "RES_SCHED_UTIL_CLAMP_MAX"
+    Path: "/proc/sys/kernel/sched_util_clamp_max"
+    Supported: true
+    HighThreshold: 1024
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "higher_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x03"
+    ResID: "0x0002"
+    Name: "RES_SCHED_ENERGY_AWARE"
+    Path: "/proc/sys/kernel/sched_energy_aware"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0x03"
+    ResID: "0x0003"
+    Name: "RES_SCHED_RT_RUNTIME"
+    Path: "/proc/sys/kernel/sched_rt_runtime_us"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0x03"
+    ResID: "0x0004"
+    Name: "RES_PER_TASK_AFFINITY"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0x04"
+    ResID: "0x0000"
+    Unit: "Hz"
+    Name: "RES_SCALE_MIN_FREQ"
+    Path: "/sys/devices/system/cpu/cpufreq/policy%d/scaling_min_freq"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "cluster"
+
+  - ResType: "0x04"
+    ResID: "0x0001"
+    Unit: "Hz"
+    Name: "RES_SCALE_MAX_FREQ"
+    Path: "/sys/devices/system/cpu/cpufreq/policy%d/scaling_max_freq"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "higher_is_better"
+    ApplyType: "cluster"
+
+  - ResType: "0x04"
+    ResID: "0x0002"
+    Name: "RES_RATE_LIMIT_US"
+    Path: "/sys/devices/system/cpu/cpufreq/policy%d/schedutil/rate_limit_us"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "cluster"
+
+  - ResType: "0x05"
+    ResID: "0x0000"
+    Name: "RES_DEVFREQ_GPU_MAX"
+    Path: "/sys/class/devfreq/*.gpu/max_freq"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: higher_is_better
+    ApplyType: "global"
+
+  - ResType: "0x05"
+    ResID: "0x0001"
+    Name: "RES_DEVFREQ_GPU_MIN"
+    Path: "/sys/class/devfreq/*.gpu/min_freq"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: higher_is_better
+    ApplyType: "global"
+
+  - ResType: "0x05"
+    ResID: "0x0002"
+    Name: "RES_DEVFREQ_GPU_POLL_INTV"
+    Path: "/sys/class/devfreq/*.gpu/polling_interval"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: higher_is_better
+
+  - ResType: "0x09"
+    ResID: "0x0000"
+    Name: "RES_CGRP_MOVE_PID"
+    Path: "/sys/fs/cgroup/%s/cgroup.procs"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "pass_through_append"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0001"
+    Name: "RES_CGRP_MOVE_TID"
+    Path: "/sys/fs/cgroup/%s/cgroup.threads"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "pass_through_append"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0002"
+    Name: "RES_CGRP_RUN_CORES"
+    Path: "/sys/fs/cgroup/%s/cpuset.cpus"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "instant_apply"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0003"
+    Name: "RES_CGRP_RUN_CORES_EXCL"
+    Path: "/sys/fs/cgroup/%s/cpuset.cpus.partition"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "instant_apply"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0004"
+    Name: "RES_CGRP_FREEZE"
+    Path: "/sys/fs/cgroup/%s/cgroup.freeze"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "instant_apply"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0005"
+    Name: "RES_CGRP_LIMIT_CPU_TIME"
+    Path: "/sys/fs/cgroup/%s/cpu.max"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "higher_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0006"
+    Name: "RES_CGRP_RUN_WHEN_CPU_IDLE"
+    Path: "/sys/fs/cgroup/%s/cpu.idle"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "instant_apply"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0007"
+    Name: "RES_CGRP_UCLAMP_MIN"
+    Path: "/sys/fs/cgroup/%s/cpu.uclamp.min"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "lower_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0008"
+    Name: "RES_CGRP_UCLAMP_MAX"
+    Path: "/sys/fs/cgroup/%s/cpu.uclamp.max"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "higher_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0009"
+    Name: "RES_CGRP_REL_CPU_WEIGHT"
+    Path: "/sys/fs/cgroup/%s/cpu.weight"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "instant_apply"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x000a"
+    Unit: "KB"
+    Name: "RES_CGRP_HIGH_MEM"
+    Path: "/sys/fs/cgroup/%s/memory.high"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "higher_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x000b"
+    Unit: "KB"
+    Name: "RES_CGRP_MAX_MEM"
+    Path: "/sys/fs/cgroup/%s/memory.max"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "higher_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x000c"
+    Unit: "KB"
+    Name: "RES_CGRP_LOW_MEM"
+    Path: "/sys/fs/cgroup/%s/memory.low"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "lower_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x000d"
+    Unit: "KB"
+    Name: "RES_CGRP_MIN_MEM"
+    Path: "/sys/fs/cgroup/%s/memory.min"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "lower_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x000e"
+    Unit: "KB"
+    Name: "RES_CGRP_SWAP_MAX_MEMORY"
+    Path: "/sys/fs/cgroup/%s/memory.swap.max"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "higher_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x000f"
+    Name: "RES_CGRP_IO_WEIGHT"
+    Path: "/sys/fs/cgroup/%s/io.weight"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "instant_apply"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0010"
+    Name: "RES_CGRP_BFQ_IO_WEIGHT"
+    Path: "/sys/fs/cgroup/%s/io.bfq.weight"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "instant_apply"
+    ApplyType: "cgroup"
+
+  - ResType: "0x09"
+    ResID: "0x0011"
+    Name: "RES_CGRP_CPU_LATENCY"
+    Path: "/sys/fs/cgroup/%s/cpu.weight.nice"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "lower_is_better"
+    ApplyType: "cgroup"
+
+  - ResType: "0x0a"
+    ResID: "0x0000"
+    Name: "RES_DEVFREQ_UFS_MAX"
+    Path: "/sys/class/devfreq/*.ufshc/max_freq"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "higher_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x0a"
+    ResID: "0x0001"
+    Name: "RES_DEVFREQ_UFS_MIN"
+    Path: "/sys/class/devfreq/*.ufshc/min_freq"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "higher_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x0a"
+    ResID: "0x0002"
+    Name: "RES_DEVFREQ_UFS_POLL_INTV"
+    Path: "/sys/class/devfreq/*.ufshc/polling_interval"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "higher_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x0b"
+    ResID: "0x0000"
+    Name: "RES_IRQ_AFFINE"
+    Path: "/proc/irq/%d/smp_affinity"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0x0b"
+    ResID: "0x0001"
+    Name: "RES_DEF_IRQ_AFFINE"
+    Path: "/proc/irq/default_smp_affinity"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on"]
+    Policy: "pass_through"
+    ApplyType: "global"

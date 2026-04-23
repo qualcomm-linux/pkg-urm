@@ -1,0 +1,15 @@
+project: https://github.com/qualcomm/userspace-resource-manager
+
+branches:
+  main:
+    modes:
+      non-blocking:
+        headers:
+          - client/APIs/Include/UrmAPIs.h
+          - modula/Common/Include/UrmPlatformAL.h
+          - extensions/Include/Extensions.h
+
+abi_checks:
+  - path: "build/client/libUrmClient.so"
+    public_headers:
+      - client/APIs/Include/UrmAPIs.h

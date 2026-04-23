@@ -1,0 +1,12 @@
+[Unit]
+Description=URM Service
+
+[Service]
+Restart=on-failure
+ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/urm
+TimeoutStopSec=2
+Delegate=yes
+Slice=urm.slice
+
+[Install]
+WantedBy=multi-user.target
