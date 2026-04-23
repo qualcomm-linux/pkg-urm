@@ -61,6 +61,4 @@ configure_file(
 
 # Install service
 pkg_check_modules(PC_SYSTEMD QUIET systemd)
-if(PC_SYSTEMD_FOUND)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/urm.service DESTINATION ${CMAKE_INSTALL_LIBDIR}/systemd/system/)
-endif()
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/urm.service DESTINATION /usr/lib/systemd/system/)
