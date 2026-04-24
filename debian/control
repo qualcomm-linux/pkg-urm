@@ -1,7 +1,7 @@
 Source: userspace-resource-manager
 Section: libs
 Priority: optional
-Maintainer: Jagadeesh Pagadala <jpagadal@qti.qualcomm.com>
+Maintainer: <Maintainers.userspace-resource-moderator@qti.qualcomm.com>
 Build-Depends: debhelper-compat (= 13), dh-sequence-cmake, cmake, pkgconf,
  libglib2.0-dev, libyaml-dev
 Standards-Version: 1.0
