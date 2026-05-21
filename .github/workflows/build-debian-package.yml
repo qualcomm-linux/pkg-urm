@@ -12,21 +12,19 @@ on:
         required: true
         default: debian/qcom-next
 
-      distro-codename:
-        description: The distribution codename to build for. Ex noble, questing, etc
+      suite:
+        description: The distribution codename or Debian suite to build for. Ex noble, questing, resolute, trixie, sid, unstable
         type: choice
-        default: noble
+        default: unstable
         options:
           - noble
           - questing
           - resolute
+          - unstable
+          - forky
           - trixie
+          - bookworm
           - sid
-
-      abi-checker:
-        description: Run the ABI checker or not
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -38,5 +36,5 @@ jobs:
     with:
       qcom-build-utils-ref: main
       debian-ref: ${{ inputs.debian-ref }}
-      distro-codename: ${{ inputs.distro-codename }}
-      run-abi-checker: ${{ inputs.abi-checker }}
+      suite: ${{ inputs.suite }}
+      debusine-parent-workspace: ${{ vars.DEBUSINE_PARENT_WORKSPACE }}
