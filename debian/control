@@ -3,8 +3,8 @@ Section: libs
 Priority: optional
 Maintainer: <Maintainers.userspace-resource-moderator@qti.qualcomm.com>
 Build-Depends: debhelper-compat (= 13), dh-sequence-cmake, cmake, pkgconf,
- libglib2.0-dev, libyaml-dev
-Standards-Version: 1.0
+ libglib2.0-dev, libyaml-dev, libsystemd-dev
+Standards-Version: 4.6.2
 Homepage: https://github.com/qualcomm/userspace-resource-manager
 
 Package: userspace-resource-manager
