@@ -19,6 +19,8 @@ jobs:
         exempt-pr-labels: bug,enhancement
         days-before-stale: 30
         days-before-close: 5
+        days-before-issue-close: -1
+        
         remove-stale-when-updated: true
         remove-issue-stale-when-updated: true
         remove-pr-stale-when-updated: true
