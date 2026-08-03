@@ -1,3 +1,9 @@
+userspace-resource-manager (0.4.3-0qli+staging1~bpo13+4~) UNRELEASED; urgency=medium
+
+  * Unreleased changes
+
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Mon, 03 Aug 2026 09:52:54 +0000
+
 userspace-resource-manager (0.4.3-0qli+staging1~bpo13+3) trixie; urgency=medium
 
   [ Debusine Action GitHub Bot ]
