@@ -1,0 +1,3 @@
+usr/lib/*/urm/libUrmPlugin.so.*
+usr/libexec/urm/initscripts/post_boot/*
+etc/urm/target/**

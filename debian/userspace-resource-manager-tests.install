@@ -1,6 +1,6 @@
-etc/urm/tests/configs/*
-etc/urm/tests/nodes/*
 usr/bin/UrmComponentTests
 usr/bin/UrmIntegrationTests
-usr/lib/*/libRestuneTestUtils.so*
-usr/lib/*/urm/libUrmTestPlugin.so*
+usr/lib/*/libRestuneTestUtils.so.*
+usr/lib/*/urm/libUrmTestPlugin.so.*
+usr/share/urm/tests/configs/*
+var/lib/urm/tests/nodes/*

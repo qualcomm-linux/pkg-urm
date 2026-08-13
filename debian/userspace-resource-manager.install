@@ -1,11 +1,5 @@
 etc/urm/classifier/*
 etc/urm/common/*
-usr/bin/urm
+usr/sbin/urm
 usr/bin/urmCli
-usr/include/Urm/*
-usr/lib/*/libContextualClassifier.so*
-usr/lib/*/libRestuneCore.so*
-usr/lib/*/libUrmAuxUtils.so*
-usr/lib/*/libUrmClient.so*
-usr/lib/*/libUrmExtAPIs.so*
 usr/lib/systemd/system/urm.service

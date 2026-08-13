@@ -1,25 +1,45 @@
 Source: userspace-resource-manager
 Section: libs
 Priority: optional
-Maintainer: URM Maintainers <Maintainers.userspace-resource-moderator@qti.qualcomm.com>
+Maintainer: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
 Uploaders:
  Agathe Porte <agathe.porte@oss.qualcomm.com>,
 Build-Depends:
  debhelper-compat (= 13),
 Build-Depends-Arch:
- dh-sequence-cmake,
  cmake,
- libglib2.0-dev,
  libsystemd-dev,
  libyaml-dev,
  pkgconf,
 Standards-Version: 4.6.2
+Rules-Requires-Root: no
+Vcs-Git: https://github.com/qualcomm-linux/pkg-urm.git
+Vcs-Browser: https://github.com/qualcomm-linux/pkg-urm
 Homepage: https://github.com/qualcomm/userspace-resource-manager
+
+Package: liburm1
+Architecture: any
+Section: libs
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends},
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: System Resource Provisioning Framework - shared libraries
+ Userspace Resource Manager is a lightweight framework to dynamically provison
+ of system resources like CPU, memory, Gpu, I/O, etc. It leverages kernel
+ interfaces like procfs, sysfs and cgroups to infleunce the resource usage to
+ ensure power and performance of applications.
+ .
+ This package contains the shared libraries used by the URM daemon and by
+ applications and extension plugins built against URM.
 
 Package: userspace-resource-manager
 Architecture: any
-Section: libs
+Section: admin
 Depends:
+ liburm1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: System Resource Provisioning Framework
@@ -28,12 +48,52 @@ Description: System Resource Provisioning Framework
  interfaces like procfs, sysfs and cgroups to infleunce the resource usage to
  ensure power and performance of applications.
 
+Package: liburm-dev
+Architecture: any
+Section: libdevel
+Multi-Arch: same
+Depends:
+ liburm1 (= ${binary:Version}),
+ ${misc:Depends},
+Description: System Resource Provisioning Framework - development files
+ Userspace Resource Manager is a lightweight framework to dynamically provison
+ of system resources like CPU, memory, Gpu, I/O, etc. It leverages kernel
+ interfaces like procfs, sysfs and cgroups to infleunce the resource usage to
+ ensure power and performance of applications.
+ .
+ This package contains the header files and shared library development symlinks
+ needed to build applications and extension plugins against URM.
+
 Package: userspace-resource-manager-tests
 Architecture: any
-Section: libs
+Section: admin
 Depends:
  userspace-resource-manager (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
-Description: Provides test binaries and custom configurations, plugins to test
- end-to-end URM functionality.
+Recommends:
+ gstreamer1.0-tools,
+Description: System Resource Provisioning Framework - test suite
+ Userspace Resource Manager is a lightweight framework to dynamically provison
+ of system resources like CPU, memory, Gpu, I/O, etc. It leverages kernel
+ interfaces like procfs, sysfs and cgroups to infleunce the resource usage to
+ ensure power and performance of applications.
+ .
+ This package contains the component and integration test binaries, along with
+ the test-only configurations and plugin used to exercise end-to-end URM
+ functionality.
+
+Package: userspace-resource-manager-extensions
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: System Resource Provisioning Framework - test suite
+ Userspace Resource Manager is a lightweight framework to dynamically provison
+ of system resources like CPU, memory, Gpu, I/O, etc. It leverages kernel
+ interfaces like procfs, sysfs and cgroups to infleunce the resource usage to
+ ensure power and performance of applications.
+ .
+ This package contains target-specific configurations for different hardware
+ platforms. The URM Extensions framework allows for extending URM functionality
+ through a clean plugin architecture.

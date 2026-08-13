@@ -1,0 +1,6 @@
+usr/include/Urm/*
+usr/lib/*/libContextualClassifier.so
+usr/lib/*/libRestuneCore.so
+usr/lib/*/libUrmAuxUtils.so
+usr/lib/*/libUrmClient.so
+usr/lib/*/libUrmExtAPIs.so

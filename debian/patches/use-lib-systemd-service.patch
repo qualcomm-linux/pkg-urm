@@ -2,12 +2,15 @@ Description: Use explicit /lib for systemd service
  ${CMAKE_INSTALL_LIBDIR} will be arch-specific and something like
  lib/aarch64-linux-gnu/ which is not compatible with installing a systemd unit.
  Use the explicit lib/ path to avoid arch-specific path.
+Forwarded: https://github.com/qualcomm/userspace-resource-manager/issues/292
 Author: Agathe Porte <agathe.porte@oss.qualcomm.com>
 Last-Update: 2026-07-15
 
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -62,5 +62,5 @@
+Index: pkg-urm/CMakeLists.txt
+===================================================================
+--- pkg-urm.orig/CMakeLists.txt
++++ pkg-urm/CMakeLists.txt
+@@ -69,5 +69,5 @@ configure_file(
  # Install service
  pkg_check_modules(PC_SYSTEMD QUIET systemd)
  if(PC_SYSTEMD_FOUND)

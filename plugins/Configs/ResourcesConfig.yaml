@@ -1,0 +1,149 @@
+# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+ResourceConfigs:
+  - ResType: "0x05"
+    ResID: "0x0003"
+    Name: "RES_KGSL_DEF_PWRLEVEL"
+    Path: "/sys/class/kgsl/kgsl-3d0/default_pwrlevel"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x05"
+    ResID: "0x0004"
+    Name: "RES_KGSL_DEVFREQ_MAX"
+    Path: "/sys/class/kgsl/kgsl-3d0/devfreq/max_freq"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x05"
+    ResID: "0x0005"
+    Name: "RES_KGSL_DEVFREQ_MIN"
+    Path: "/sys/class/kgsl/kgsl-3d0/devfreq/min_freq"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "higher_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x05"
+    ResID: "0x0006"
+    Name: "RES_KGSL_IDLE_TIMER"
+    Path: "/sys/class/kgsl/kgsl-3d0/idle_timer"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x05"
+    ResID: "0x0007"
+    Name: "RES_KGSL_MAX_PWRLEVEL"
+    Path: "/sys/class/kgsl/kgsl-3d0/max_pwrlevel"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x05"
+    ResID: "0x0008"
+    Name: "RES_KGSL_MIN_PWRLEVEL"
+    Path: "/sys/class/kgsl/kgsl-3d0/min_pwrlevel"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x05"
+    ResID: "0x0009"
+    Name: "RES_KGSL_TOUCH_WAKE"
+    Path: "/sys/class/kgsl/kgsl-3d0/touch_wake"
+    Supported: true
+    LowThreshold: 0
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "lower_is_better"
+    ApplyType: "global"
+
+  - ResType: "0x09"
+    ResID: "0x000f"
+    Name: "RES_CGRP_IO_WEIGHT"
+    Path: "/sys/fs/cgroup/%s/io.bfq.weight"
+    Supported: true
+    Permissions: "system"
+    Modes: ["display_on"]
+    Policy: "instant_apply"
+    ApplyType: "cgroup"
+
+  # Reserve "80" for RT Benchmarking(cyclictest)
+  - ResType: "0x80"
+    ResID: "0x0000"
+    Name: "RES_TIMER_MIGRATION"
+    Path: "/proc/sys/kernel/timer_migration"
+    Supported: true
+    Permissions: third_party
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0x80"
+    ResID: "0x0001"
+    Name: "RES_CPU_FREQ_GOV"
+    Path: ""
+    Supported: true
+    Permissions: third_party
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0x80"
+    ResID: "0x0002"
+    Name: "RES_IRQ_AFFINITY"
+    Path: ""
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0x80"
+    ResID: "0x0003"
+    Name: "RES_CPU_WQ_AFFINITY"
+    Path: ""
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0x80"
+    ResID: "0x0004"
+    Name: "RES_TRACING"
+    Path: "/sys/kernel/tracing/tracing_on"
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on", "doze"]
+    Policy: "pass_through"
+    ApplyType: "global"
+
+  - ResType: "0xf0"
+    ResID: "0x0001"
+    Name: "RES_IRQ_AFFINE_ALL"
+    Path: ""
+    Supported: true
+    Permissions: "third_party"
+    Modes: ["display_on"]
+    Policy: "pass_through"
+    ApplyType: "global"

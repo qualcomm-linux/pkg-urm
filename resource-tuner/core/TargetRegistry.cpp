@@ -556,7 +556,10 @@ ErrCode TargetRegistry::addIrqAffine(std::vector<std::string>& values,
             filePath.append("smp_affinity");
 
             if(AuxRoutines::fileExists(filePath)) {
-                AuxRoutines::writeToFile(filePath, std::to_string(mask));
+                // Convert mask to hex
+                std::string hexMask = "";
+                AuxRoutines::cpuMaskToHex(mask, hexMask);
+                AuxRoutines::writeToFile(filePath, hexMask);
             }
         }
         closedir(dir);

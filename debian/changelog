@@ -1,8 +1,62 @@
-userspace-resource-manager (0.4.3-0qli+staging1~bpo13+4~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.4.6-0qli1) forky; urgency=medium
 
-  * Unreleased changes
+  [ Lukas Märdian ]
+  * New upstream release: v0.4.6
+  * d/gbp.conf: Update for QLI branch.
+  * d/patches: Drop patches applied upstream.
+  * d/patches: Refresh patches.
+  * d/control: Add -extensions package to URM.
+  * d/patches: Fix underlinked shared libraries reported as undefined symbols.
+    - detect-libyaml-at-top-level.patch
+    - link-classifier-against-restunecore.patch
 
- -- Debusine Action GitHub Bot <noreply@bot.invalid>  Mon, 03 Aug 2026 09:52:54 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Thu, 13 Aug 2026 14:11:05 +0000
+
+userspace-resource-manager (0.4.3-0qli+staging4) forky; urgency=medium
+
+  [ Lukas Märdian ]
+  * d/control: Add a gstreamer1.0-tools Recommends for -tests.
+  * d/patches: Drop the unusual WantedBy=basic.target from urm.service.
+    - drop-unusual-wantedby-basic-target.patch
+
+ -- Debusine Action Bot <noreply@bot.invalid>  Thu, 13 Aug 2026 07:42:00 +0000
+
+userspace-resource-manager (0.4.3-0qli+staging3) forky; urgency=medium
+
+  [ Lukas Märdian ]
+  * d/control: Drop Breaks/Replaces, after +staging2 upgrade went through.
+  * d/patches: Store runtime state under /var/lib instead of /etc.
+    - store-runtime-state-under-var-lib.patch
+  * d/patches: Move test fixtures out of /etc into /usr/share and /var/lib.
+    - de-conffile-test-fixtures.patch
+  * d/patches: Install the urm daemon binary to /usr/sbin instead of /usr/bin.
+    - install-urm-daemon-to-sbin.patch
+  * d/control: Add myself as a maintainer.
+  * d/copyright: Update metadata.
+  * d/tests: Add initial autopkgtests.
+  * d/p/use-lib-systemd-service.patch: Update patch headers.
+
+ -- Debusine Action Bot <noreply@bot.invalid>  Wed, 12 Aug 2026 10:36:58 +0000
+
+userspace-resource-manager (0.4.3-0qli+staging2) forky; urgency=medium
+
+  [ Lukas Märdian ]
+  * d/watch: Add initial watch file
+  * d/rules: Cleanup.
+  * d/control: Build and ship userspace-resource-manager-tests binary package.
+  * d/control: Add liburm-dev package.
+  * d/control: Add liburm1 package.
+  * d/control: Update metadata.
+  * d/control: Drop unused dh-cmake.
+  * d/control: Drop unused build-dep on GLib.
+  * Cleanup the -tests package to avoid lintian warnings.
+  * liburm1: Add lintian override to explain 5 .so in single package.
+  * d/patches: Allow searching for custom initscripts in /usr/libexec
+    - look-for-post-boot-script-in-usr-libexec.patch
+  * d/control: Add Breaks/Replaces on the old monolithic package, to
+    allow upgrades.
+
+ -- Debusine Action Bot <noreply@bot.invalid>  Tue, 11 Aug 2026 09:01:49 +0000
 
 userspace-resource-manager (0.4.3-0qli+staging1~bpo13+3) trixie; urgency=medium
 
@@ -31,4 +85,4 @@ userspace-resource-manager (0.4.3-0qli+staging1) forky; urgency=low
   [ Agathe Porte ]
   * Initial release.
 
- -- root <root@50fb455ac845>  Wed, 15 Jul 2026 14:24:51 +0000
+ -- Agathe Porte <agathe.porte@oss.qualcomm.com>  Wed, 15 Jul 2026 14:24:51 +0000

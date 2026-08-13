@@ -1,0 +1,35 @@
+#!/bin/sh
+# Run the as-installed component test suite.
+#
+# UrmComponentTests exercises the parsers, memory pool, thread pool, timers and
+# other internal components against the fixtures shipped in
+# /usr/share/urm/tests/configs. It exits non-zero if any case fails, so its exit
+# status can be used directly.
+#
+# One wrinkle: the config parser is not side-effect free. TargetRegistry's
+# addCGroupMapping() only records a cgroup once createCGroup() has mkdir'd it
+# under /sys/fs/cgroup, so InitConfigParsingTests fails outright when that path
+# is not writable (as in a plain chroot). We therefore need a writable
+# /sys/fs/cgroup, which is why this test declares isolation-container.
+
+set -e
+
+# The suite writes tests_report.html into the current directory.
+cd "$AUTOPKGTEST_TMP"
+
+if [ ! -w /sys/fs/cgroup ]; then
+    echo "ERROR: /sys/fs/cgroup is not writable." >&2
+    echo "The config parser creates cgroups as a side effect of parsing" >&2
+    echo "InitConfig.yaml, so the suite cannot pass without it." >&2
+    exit 1
+fi
+
+rc=0
+UrmComponentTests || rc=$?
+
+# Keep the HTML report for post-mortem analysis, including on failure.
+if [ -n "$AUTOPKGTEST_ARTIFACTS" ] && [ -f tests_report.html ]; then
+    cp tests_report.html "$AUTOPKGTEST_ARTIFACTS/component-tests_report.html"
+fi
+
+exit $rc
