@@ -84,7 +84,7 @@ userspace-resource-manager (0.4.3-0qli+staging1~bpo13+1) trixie; urgency=medium
   [ Agathe Porte ]
   * Rebuild for trixie.
 
- -- root <root@82b6b69de4a5>  Wed, 15 Jul 2026 14:30:57 +0000
+ -- Debusine Action GitHub Bot <noreply@bot.invalid>  Wed, 15 Jul 2026 14:30:57 +0000
 
 userspace-resource-manager (0.4.3-0qli+staging1) forky; urgency=low
 
