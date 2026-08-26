@@ -1,0 +1,12 @@
+# liburm1 intentionally ships all five URM shared libraries in a single binary
+# package rather than one package per SONAME. The libraries
+# (libContextualClassifier, libRestuneCore, libUrmAuxUtils, libUrmClient,
+# libUrmExtAPIs) are built from one source tree, all carry SOVERSION 1, and are
+# versioned and released in lockstep by upstream -- they are not independently
+# consumable. Splitting them into five packages would add four binary packages
+# with no practical gain for consumers, who always need the whole set.
+#
+# Should upstream ever bump one library's SOVERSION independently, this
+# aggregation becomes wrong and the package must be split per SONAME, with the
+# usual library transition.
+liburm1: package-name-doesnt-match-sonames libContextualClassifier1 libRestuneCore1 libUrmAuxUtils1 libUrmClient1 libUrmExtAPIs1

@@ -1,0 +1,38 @@
+Description: Link ContextualClassifier against RestuneCore unconditionally
+ target_link_libraries(ContextualClassifier PRIVATE RestuneCore) sat inside the
+ if(FLORET_FOUND) branch, but RestuneCore is needed whether or not floret is
+ present. floret is not packaged in Debian and ENABLE_FLORET defaults to OFF,
+ so the branch never ran and libContextualClassifier.so was linked with no
+ libraries at all, leaving 42 undefined symbols including
+ ClientDataManager::instanceProtectionLock, typeinfo for Request,
+ UrmSettings::metaConfigs, AppConfigs::appConfigRegistryInstance and
+ ClientGarbageCollector::mClientGarbageCollectorInstance.
+ .
+ Move the call out of the conditional. RestuneCore links UrmAuxUtils and
+ UrmExtAPIs PUBLIC, so this covers them transitively.
+Forwarded: no
+Author: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+Last-Update: 2026-08-13
+
+--- a/contextual-classifier/CMakeLists.txt
++++ b/contextual-classifier/CMakeLists.txt
+@@ -21,6 +21,11 @@ set_target_properties(ContextualClassifier PROPERTIES
+ 
+ target_include_directories(ContextualClassifier PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Include)
+ 
++# RestuneCore is an unconditional dependency: ContextualClassifier.cpp resolves
++# symbols from it (and, transitively, from UrmAuxUtils and UrmExtAPIs) whether or
++# not floret is available.
++target_link_libraries(ContextualClassifier PRIVATE RestuneCore)
++
+ # floret detection and USE_FLORET macro using pkg-config
+ option(ENABLE_FLORET "Build ML inference with floret support" OFF)
+ 
+@@ -56,7 +61,6 @@ if(FLORET_FOUND)
+ 
+     target_link_libraries(ml_inference_lib PRIVATE ${FLORET_LIBRARIES})
+     target_link_libraries(ContextualClassifier PRIVATE ml_inference_lib)
+-    target_link_libraries(ContextualClassifier PRIVATE RestuneCore)
+ 
+     target_include_directories(ml_inference_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Include)
+     target_include_directories(ml_inference_lib PRIVATE ${FLORET_INCLUDE_DIRS})

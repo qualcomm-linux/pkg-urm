@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: urm
-Upstream-Contact: URM Maintainers <Maintainers.userspace-resource-moderator@qti.qualcomm.com>
+Upstream-Name: userspace-resource-manager
+Upstream-Contact: https://github.com/qualcomm/userspace-resource-manager/issues/new
 Source: https://github.com/qualcomm/userspace-resource-manager
 
 Files: *

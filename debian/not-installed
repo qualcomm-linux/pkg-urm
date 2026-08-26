@@ -1,0 +1,11 @@
+# Development symlinks for private test-only libraries. Neither library is
+# public API: libRestuneTestUtils is linked by the test binaries at build time,
+# and libUrmTestPlugin is dlopen()ed at runtime by the directory scan in
+# resource-tuner/init/RestuneInit.cpp. Nothing links against either
+# out-of-tree, so the .so symlinks would only trigger
+# link-to-shared-library-in-wrong-package without being useful to anyone.
+usr/lib/*/libRestuneTestUtils.so
+usr/lib/*/urm/libUrmTestPlugin.so
+# UrmPlugin is a runtime-only dlopen()ed plugin; nothing links against it
+# out-of-tree, so the unversioned .so dev symlink is not needed.
+usr/lib/*/urm/libUrmPlugin.so

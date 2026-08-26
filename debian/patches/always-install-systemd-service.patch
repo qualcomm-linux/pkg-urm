@@ -5,9 +5,11 @@ Description: Always install systemd service
 Author: Agathe Porte <agathe.porte@oss.qualcomm.com>
 Last-Update: 2026-07-15
 
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -60,7 +60,4 @@
+Index: pkg-urm/CMakeLists.txt
+===================================================================
+--- pkg-urm.orig/CMakeLists.txt
++++ pkg-urm/CMakeLists.txt
+@@ -67,7 +67,4 @@ configure_file(
  @ONLY)
  
  # Install service

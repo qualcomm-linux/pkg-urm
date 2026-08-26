@@ -1,0 +1,57 @@
+Description: Install the urm daemon binary to /usr/sbin instead of /usr/bin
+ urm is a root-managed daemon started by systemd and never invoked directly
+ by regular users; it has no business being on a normal user's PATH. That is
+ exactly the FHS/Debian convention /usr/sbin exists for (cf. sshd, nginx),
+ while urmCli -- the tool users actually run -- correctly stays in /usr/bin.
+Author: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+Forwarded: https://github.com/qualcomm/userspace-resource-manager/issues/291
+Last-Update: 2026-08-11
+
+Index: pkg-urm/CMakeLists.txt
+===================================================================
+--- pkg-urm.orig/CMakeLists.txt
++++ pkg-urm/CMakeLists.txt
+@@ -59,7 +59,7 @@ add_executable(urm ${SERVER_EXECUTABLE}
+ target_link_libraries(urm PUBLIC ${SERVER_LIBS})
+ 
+ # Install bin
+-install(TARGETS urm RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
++install(TARGETS urm RUNTIME DESTINATION ${CMAKE_INSTALL_SBINDIR})
+ 
+ configure_file(
+     ${CMAKE_CURRENT_SOURCE_DIR}/urm.service.in
+Index: pkg-urm/urm.service.in
+===================================================================
+--- pkg-urm.orig/urm.service.in
++++ pkg-urm/urm.service.in
+@@ -5,7 +5,7 @@ After=sysinit.target
+ 
+ [Service]
+ Restart=on-failure
+-ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/urm
++ExecStart=@CMAKE_INSTALL_FULL_SBINDIR@/urm
+ ExecStartPre=-/usr/libexec/urm/initscripts/post_boot/post_boot.sh
+ TimeoutStopSec=2
+ Delegate=yes
+Index: pkg-urm/README.md
+===================================================================
+--- pkg-urm.orig/README.md
++++ pkg-urm/README.md
+@@ -59,7 +59,7 @@ sudo dpkg -i ../userspace-resource-manag
+      Memory: 4.6M (peak: 6.9M)
+         CPU: 24ms
+      CGroup: /system.slice/urm.service
+-             └─4048154 /usr/bin/urm
++             └─4048154 /usr/sbin/urm
+ ```
+ * Cleanup the workspace
+ ```
+@@ -108,7 +108,7 @@ sudo cmake --install .
+ ```
+ * Start the URM Server
+ ```bash
+-/usr/bin/urm
++/usr/sbin/urm
+ ```
+ 
+ * Install to a custom temporary directory [Optional]
