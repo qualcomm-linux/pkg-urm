@@ -1,6 +1,5 @@
 Source: userspace-resource-manager
 Section: libs
-Priority: optional
 Maintainer: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
 Uploaders:
  Agathe Porte <agathe.porte@oss.qualcomm.com>,
@@ -12,7 +11,6 @@ Build-Depends-Arch:
  libyaml-dev,
  pkgconf,
 Standards-Version: 4.6.2
-Rules-Requires-Root: no
 Vcs-Git: https://github.com/qualcomm-linux/pkg-urm.git
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-urm
 Homepage: https://github.com/qualcomm/userspace-resource-manager
@@ -42,6 +40,7 @@ Depends:
  liburm1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
+Recommends: userspace-resource-manager-extensions
 Description: System Resource Provisioning Framework
  Userspace Resource Manager is a lightweight framework to dynamically provison
  of system resources like CPU, memory, Gpu, I/O, etc. It leverages kernel
@@ -88,7 +87,7 @@ Architecture: any
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
-Description: System Resource Provisioning Framework - test suite
+Description: System Resource Provisioning Framework - extensions
  Userspace Resource Manager is a lightweight framework to dynamically provison
  of system resources like CPU, memory, Gpu, I/O, etc. It leverages kernel
  interfaces like procfs, sysfs and cgroups to infleunce the resource usage to

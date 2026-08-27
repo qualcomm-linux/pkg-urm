@@ -1,8 +1,12 @@
-userspace-resource-manager (0.4.6-0qli1~bpo13+2~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.4.6-0qli2) forky; urgency=medium
 
-  * Unreleased changes
+  [ Lukas Märdian ]
+  * d/control: Add Recommends for urm-extensions.
+  * d/control: Drop explicit R3 and "optional" fields.
+  * d/control: Improve -extensions short description.
+  * d/liburm1,urm-tests: Add lintian-overrides.
 
- -- Debusine Action Bot <noreply@bot.invalid>  Tue, 18 Aug 2026 10:09:01 +0000
+ -- Debusine Action Bot <noreply@bot.invalid>  Thu, 27 Aug 2026 13:03:38 +0000
 
 userspace-resource-manager (0.4.6-0qli1~bpo13+1) trixie; urgency=medium
 
