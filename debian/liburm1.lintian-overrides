@@ -10,3 +10,5 @@
 # aggregation becomes wrong and the package must be split per SONAME, with the
 # usual library transition.
 liburm1: package-name-doesnt-match-sonames libContextualClassifier1 libRestuneCore1 libUrmAuxUtils1 libUrmClient1 libUrmExtAPIs1
+# For C++ libraries, we're explicitly avoiding the .symbols file
+liburm1: no-symbols-control-file

@@ -1,5 +1,6 @@
-# libRestuneTestUtils is a private helper library used only by the URM test
-# binaries shipped in this same package. It is not public API and has no
-# external consumers, so it deliberately lives here rather than in its own
-# SONAME-matched library package.
+# For C++ libraries, we're explicitly avoiding the .symbols file
+userspace-resource-manager-tests: no-symbols-control-file
+# Not docs, but test data
+userspace-resource-manager-tests: package-contains-documentation-outside-usr-share-doc [var/lib/urm/tests/nodes/*.txt]
+# Private test-library
 userspace-resource-manager-tests: package-name-doesnt-match-sonames libRestuneTestUtils1
