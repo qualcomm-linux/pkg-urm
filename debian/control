@@ -1,6 +1,5 @@
 Source: userspace-resource-manager
 Section: libs
-Priority: optional
 Maintainer: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
 Uploaders:
  Agathe Porte <agathe.porte@oss.qualcomm.com>,
@@ -12,7 +11,6 @@ Build-Depends-Arch:
  libyaml-dev,
  pkgconf,
 Standards-Version: 4.6.2
-Rules-Requires-Root: no
 Vcs-Git: https://github.com/qualcomm-linux/pkg-urm.git
 Vcs-Browser: https://github.com/qualcomm-linux/pkg-urm
 Homepage: https://github.com/qualcomm/userspace-resource-manager
