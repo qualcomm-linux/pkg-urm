@@ -1,4 +1,4 @@
-userspace-resource-manager (0.4.6-0qli2~bpo13+1) trixie; urgency=medium
+userspace-resource-manager (0.4.6-0qli2~bpo13+1~) UNRELEASED; urgency=medium
 
   * Rebuild for trixie.
 
