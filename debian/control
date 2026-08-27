@@ -87,7 +87,7 @@ Architecture: any
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
-Description: System Resource Provisioning Framework - test suite
+Description: System Resource Provisioning Framework - extensions
  Userspace Resource Manager is a lightweight framework to dynamically provison
  of system resources like CPU, memory, Gpu, I/O, etc. It leverages kernel
  interfaces like procfs, sysfs and cgroups to infleunce the resource usage to
