@@ -1,3 +1,9 @@
+userspace-resource-manager (0.4.6-0qli2~bpo13+1) trixie; urgency=medium
+
+  * Rebuild for trixie.
+
+ -- Lukas Märdian <slyon@debian.org>  Thu, 27 Aug 2026 15:16:33 +0200
+
 userspace-resource-manager (0.4.6-0qli2) forky; urgency=medium
 
   [ Lukas Märdian ]
