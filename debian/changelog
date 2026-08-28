@@ -1,12 +1,8 @@
 userspace-resource-manager (0.4.6-1~) UNRELEASED; urgency=medium
 
-  [ URM Maintainers ]
-  * WIP — update changelog before next release
+  Update version to  v0.4.6
 
-  [ Kartik Nema ]
-  * Merge latest changes from qli/debian/trixie (v0.4.6)
-
- -- Kartik Nema <kartnema@hu-kartnema-hyd.qualcomm.com>  Wed, 26 Aug 2026 11:38:34 +0530
+ -- URM Maintainers <Maintainers.userspace-resource-moderator@qti.qualcomm.com>  Thu, 27 Aug 2026 17:44:10 +0000
 
 userspace-resource-manager (0.4.3-0) resolute; urgency=medium
 
