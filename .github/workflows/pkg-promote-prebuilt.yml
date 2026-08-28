@@ -41,9 +41,9 @@ permissions:
 
 jobs:
   promote:
-    uses: qualcomm-linux/qcom-build-utils/.github/workflows/pkg-promote-prebuilt-reusable-workflow.yml@main
+    uses: qualcomm-linux/qli-ci/.github/workflows/pkg-promote-prebuilt-reusable-workflow.yml@main
     with:
-      qcom-build-utils-ref: main
+      qli-ci-ref: main
       debian-branch: ${{inputs.debian-branch}}
       new-tag: ${{inputs.new-tag}}
       new-package-name: ${{inputs.new-package-name}}
