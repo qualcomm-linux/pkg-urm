@@ -5,6 +5,10 @@ on:
     branches: [ debian/*, qcom/** ]
     types: [ opened, synchronize, reopened, closed ]
 
+concurrency:
+  group: pr-build-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   packages: read
@@ -13,9 +17,9 @@ jobs:
   build:
     name: PR Build
     if: ${{ github.event.action != 'closed' || github.event.pull_request.merged == true }}
-    uses: qualcomm-linux/qcom-build-utils/.github/workflows/pkg-build-reusable-workflow.yml@main
+    uses: qualcomm-linux/qli-ci/.github/workflows/pkg-build-reusable-workflow.yml@main
     with:
-      qcom-build-utils-ref: main
+      qli-ci-ref: main
       # PRE-MERGE: use the PR head branch (github.head_ref)
       # POST-MERGE: use the base branch name from the PR
       debian-ref: ${{ (github.event.action == 'closed' && github.event.pull_request.merged) && github.event.pull_request.base.ref || github.head_ref }}
@@ -23,3 +27,4 @@ jobs:
     secrets:
       DEBUSINE_USER: ${{ secrets.DEBUSINE_USER }}
       DEBUSINE_TOKEN: ${{ secrets.DEBUSINE_TOKEN }}
+      DEB_PKG_BOT_CI_TOKEN: ${{ secrets.DEB_PKG_BOT_CI_TOKEN }}
