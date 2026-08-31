@@ -1,0 +1,20 @@
+Description: Drop the unusual WantedBy=basic.target from urm.service
+ Enabling a service into basic.target is unusual, and here it is also
+ redundant: multi-user.target pulls in basic.target,  so any boot
+ reaching multi-user.target already starts urm.service through the
+ multi-user.target symlink. The basic.target symlink only duplicates that.
+Bug: https://github.com/qualcomm-linux/pkg-urm/issues/25
+Author: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+Forwarded: https://github.com/qualcomm/userspace-resource-manager/issues/294
+Last-Update: 2026-08-13
+
+Index: pkg-urm/urm.service.in
+===================================================================
+--- pkg-urm.orig/urm.service.in
++++ pkg-urm/urm.service.in
+@@ -12,4 +12,4 @@ Delegate=yes
+ Slice=urm.slice
+ 
+ [Install]
+-WantedBy=basic.target multi-user.target
++WantedBy=multi-user.target

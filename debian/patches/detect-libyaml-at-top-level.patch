@@ -1,0 +1,63 @@
+Description: Detect libyaml at top level and link it PUBLIC into UrmAuxUtils
+ pkg_check_modules() sets directory-scoped variables, and libyaml was detected
+ in resource-tuner/CMakeLists.txt. Since the top-level CMakeLists.txt adds
+ modula/ before resource-tuner/, LIBYAML_LIBRARIES expanded to nothing in
+ modula/, silently dropping -lyaml from libUrmAuxUtils.so. Directories added
+ after resource-tuner/ (such as tests/) only got a working -lyaml by accident
+ of ordering.
+ .
+ Hoist the detection above the first add_subdirectory() so every subdirectory
+ sees it.
+ .
+ Link it PUBLIC rather than PRIVATE: YamlParser.h is a macro header that
+ expands yaml_*() calls into every translation unit that includes it, so
+ libyaml is part of the target's link interface rather than an implementation
+ detail. This is what leaves libRestuneTestUtils.so with undefined
+ yaml_parser_initialize, yaml_parser_set_input_file, yaml_parser_parse,
+ yaml_parser_delete and yaml_event_delete, as it includes the header via
+ TestBaseline.h but links only UrmAuxUtils.
+Forwarded: no
+Author: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+Last-Update: 2026-08-13
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -12,6 +12,12 @@ find_package(PkgConfig REQUIRED)
+ 
+ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+ 
++# Mandatory Dependencies
++# Detected here, before any add_subdirectory() call, because pkg_check_modules
++# sets directory-scoped variables: detecting libyaml in resource-tuner/ leaves
++# LIBYAML_LIBRARIES empty in the sibling directories that also need it.
++pkg_check_modules(LIBYAML REQUIRED yaml-0.1)
++
+ # Custom Build Options
+ option(BUILD_CLASSIFIER "Classifier" ON)
+ option(BUILD_EXTENSIONS "Extensions" ON)
+--- a/modula/CMakeLists.txt
++++ b/modula/CMakeLists.txt
+@@ -9,8 +9,11 @@ file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/Components/*.cpp"
+ 
+ add_library(UrmAuxUtils ${SOURCES})
+ set_target_properties(UrmAuxUtils PROPERTIES VERSION 1.0.0 SOVERSION 1)
+-target_link_libraries(UrmAuxUtils PRIVATE ${LIBYAML_LIBRARIES})
+-target_include_directories(UrmAuxUtils PRIVATE ${LIBYAML_INCLUDE_DIRS})
++# PUBLIC, not PRIVATE: YamlParser.h is a macro header that expands yaml_*()
++# calls into every translation unit that includes it, so libyaml is part of this
++# target's interface rather than an implementation detail.
++target_link_libraries(UrmAuxUtils PUBLIC ${LIBYAML_LIBRARIES})
++target_include_directories(UrmAuxUtils PUBLIC ${LIBYAML_INCLUDE_DIRS})
+ target_include_directories(UrmAuxUtils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Components/Include)
+ target_include_directories(UrmAuxUtils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Common/Include)
+ target_include_directories(UrmAuxUtils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/CoreModules/Include)
+--- a/resource-tuner/CMakeLists.txt
++++ b/resource-tuner/CMakeLists.txt
+@@ -1,5 +1,6 @@
+ # Mandatory Dependencies
+-pkg_check_modules(LIBYAML REQUIRED yaml-0.1)
++# libyaml (LIBYAML_*) is detected in the top-level CMakeLists.txt so that every
++# subdirectory sees it.
+ 
+ # Optional Dependency: libsystemd
+ set(LIB_SYSTEMD_DEP_FOUND FALSE)

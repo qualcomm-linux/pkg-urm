@@ -1,8 +1,8 @@
-userspace-resource-manager (0.4.3-1~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.4.6-1~) UNRELEASED; urgency=medium
 
-  * WIP — update changelog before next release
+  Update version to  v0.4.6
 
- -- URM Maintainers <Maintainers.userspace-resource-moderator@qti.qualcomm.com>  Wed, 29 Jul 2026 17:44:10 +0000
+ -- URM Maintainers <Maintainers.userspace-resource-moderator@qti.qualcomm.com>  Thu, 27 Aug 2026 17:44:10 +0000
 
 userspace-resource-manager (0.4.3-0) resolute; urgency=medium
 
@@ -10,3 +10,4 @@ userspace-resource-manager (0.4.3-0) resolute; urgency=medium
   * Reseed qcom/ubuntu/resolute from qli-staging/debian/trixie baseline.
 
  -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Wed, 29 Jul 2026 17:35:52 +0000
+ 

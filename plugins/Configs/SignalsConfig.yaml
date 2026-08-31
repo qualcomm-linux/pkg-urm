@@ -1,0 +1,66 @@
+SignalConfigs:
+  - SigId: "0x0001"
+    Category: "0x01"
+    Name: URM_APP_OPEN
+    Enable: true
+    Permissions: ["system", "third_party"]
+    Resources:
+      - {ResCode: "RES_CGRP_RUN_CORES", Values: [2, 0,1,2,3]}
+      - {ResCode: "RES_CGRP_CPU_LATENCY", Values: [4, -20]}
+
+  - SigId: "0x0001"
+    Category: "0x80"
+    Name: RT_TRIGGER
+    Enable: true
+    Permissions: ["system", "third_party"]
+    Timeout: -1
+    Resources:
+      - {ResCode: "0x00030003", Values: [-1]}
+      - {ResCode: "0x00800000", Values: [0]}
+      - {ResCode: "0x00800001", Values: [0]}
+      - {ResCode: "0x00800002", Values: [0]}
+      - {ResCode: "0x00800003", Values: [0]}
+      - {ResCode: "0x00800004", Values: [0]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST0", ResInfo: "0x00000000", Values: [1]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST0", ResInfo: "0x00000100", Values: [1]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST0", ResInfo: "0x00000200", Values: [1]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST1", ResInfo: "0x00000000", Values: [1]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST1", ResInfo: "0x00000100", Values: [1]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST1", ResInfo: "0x00000200", Values: [1]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST2", ResInfo: "0x00000000", Values: [1]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST2", ResInfo: "0x00000100", Values: [1]}
+      - {ResCode: "RES_CPU_IDLE_DISABLE_ST2", ResInfo: "0x00000200", Values: [1]}
+
+  - SigId: "0x0123"
+    Category: "0xf1"
+    Name: GENIE_T2T_RUN
+    Enable: true
+    Permissions: ["system", "third_party"]
+    Timeout: -1
+    Resources:
+    - {ResCode: "0x00f00001", ResInfo: "0x00000000", Values: [0, 1, 2, 3, 4, 5]}
+    - {ResCode: "0x00090002", ResInfo: "0x00000000", Values: [2, 0, 1, 2, 3, 4, 5]}
+
+  - SigId: "0x1337"
+    Category: "0xea"
+    Name: "CAMERA_OPEN"
+    Enable: true
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+    Resources:
+      - {ResCode: "RES_SCALE_MIN_FREQ", ResInfo: "CLUSTER_BIG_ALL_CORES", Values: [2361600]}
+      - {ResCode: "RES_SCALE_MAX_FREQ", ResInfo: "CLUSTER_BIG_ALL_CORES", Values: [2361600]}
+      - {ResCode: "RES_SCALE_MIN_FREQ", ResInfo: "CLUSTER_LITTLE_ALL_CORES", Values: [2361600]}
+      - {ResCode: "RES_SCALE_MAX_FREQ", ResInfo: "CLUSTER_LITTLE_ALL_CORES", Values: [2361600]}
+
+  - SigId: "0x1338"
+    Category: "0xea"
+    Name: "CAMERA_CLOSE"
+    Enable: true
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+    Resources:
+      - {ResCode: "RES_SCALE_MIN_FREQ", ResInfo: "CLUSTER_BIG_ALL_CORES", Values: [2361600]}
+      - {ResCode: "RES_SCALE_MAX_FREQ", ResInfo: "CLUSTER_BIG_ALL_CORES", Values: [2361600]}
+      - {ResCode: "RES_SCALE_MIN_FREQ", ResInfo: "CLUSTER_LITTLE_ALL_CORES", Values: [2361600]}
+      - {ResCode: "RES_SCALE_MAX_FREQ", ResInfo: "CLUSTER_LITTLE_ALL_CORES", Values: [2361600]}

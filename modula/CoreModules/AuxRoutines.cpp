@@ -142,6 +142,12 @@ int8_t AuxRoutines::isNumericString(const std::string& str) {
     return std::all_of(str.begin(), str.end(), ::isdigit);
 }
 
+void AuxRoutines::cpuMaskToHex(uint64_t mask, std::string& result) {
+    char buf[32];
+    snprintf(buf, sizeof(buf), "%llx", (unsigned long long) mask);
+    result = std::string(buf);
+}
+
 // Function to get the first matching PID for a given process name
 pid_t AuxRoutines::fetchPid(const std::string& process_name) {
     DIR* proc_dir = opendir("/proc");
