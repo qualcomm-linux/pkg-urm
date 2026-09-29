@@ -8,8 +8,7 @@ include /usr/share/dpkg/architecture.mk
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		-DBUILD_SHARED_LIBS=ON \
-		-DBUILD_TESTS=ON \
-		-DCMAKE_BUILD_TYPE=RelWithDebInfo
+		-DBUILD_TESTS=ON
 
 override_dh_installsystemd:
 	dh_installsystemd --name=urm
