@@ -1,10 +1,11 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include "URMTests.h"
 #include "TestUtils.h"
 #include "RestuneParser.h"
 #include "ResourceRegistry.h"
+#include "Config.h"
 
 #define TEST_CLASS "COMPONENT"
 #define TEST_SUBCAT "1_URM_EXTN_INTF"
@@ -40,27 +41,27 @@ static void Init() {
 
 URM_TEST(TestExtensionIntfModifiedResourceConfigPath, {
     Init();
-    E_ASSERT((Extensions::getResourceConfigFilePath() == "/usr/share/urm/tests/configs/ResourcesConfig.yaml"));
+    E_ASSERT((Extensions::getResourceConfigFilePath() == URM_TEST_DATA_DIR "configs/ResourcesConfig.yaml"));
 })
 
 URM_TEST(TestExtensionIntfModifiedPropertiesConfigPath, {
     Init();
-    E_ASSERT((Extensions::getPropertiesConfigFilePath() == "/usr/share/urm/tests/configs/PropertiesConfig.yaml"));
+    E_ASSERT((Extensions::getPropertiesConfigFilePath() == URM_TEST_DATA_DIR "configs/PropertiesConfig.yaml"));
 })
 
 URM_TEST(TestExtensionIntfModifiedSignalConfigPath, {
     Init();
-    E_ASSERT((Extensions::getSignalsConfigFilePath() == "/usr/share/urm/tests/configs/SignalsConfig.yaml"));
+    E_ASSERT((Extensions::getSignalsConfigFilePath() == URM_TEST_DATA_DIR "configs/SignalsConfig.yaml"));
 })
 
 URM_TEST(TestExtensionIntfModifiedTargetConfigPath, {
     Init();
-    E_ASSERT((Extensions::getTargetConfigFilePath() == "/usr/share/urm/tests/configs/TargetConfig.yaml"));
+    E_ASSERT((Extensions::getTargetConfigFilePath() == URM_TEST_DATA_DIR "configs/TargetConfig.yaml"));
 })
 
 URM_TEST(TestExtensionIntfModifiedInitConfigPath, {
     Init();
-    E_ASSERT((Extensions::getInitConfigFilePath() == "/usr/share/urm/tests/configs/InitConfig.yaml"));
+    E_ASSERT((Extensions::getInitConfigFilePath() == URM_TEST_DATA_DIR "configs/InitConfig.yaml"));
 })
 
 URM_TEST(TestExtensionIntfCustomResourceApplier1, {

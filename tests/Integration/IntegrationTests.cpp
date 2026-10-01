@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include <thread>
 
@@ -210,7 +210,7 @@ URM_TEST(TestNullOrInvalidRequestVerification3, {
  * Cross-Reference id: [D]
  */
 URM_TEST(TestClientPriorityAcquisitionVerification, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
     int32_t testResourceOriginalValue = 107;
 
     std::string value;
@@ -253,7 +253,7 @@ URM_TEST(TestClientPriorityAcquisitionVerification, {
  */
 URM_TEST(TestInvalidResourceTuning, {
     // Create a list of 2 Resources, where only one of them is valid
-    std::string validResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string validResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
     int32_t validResourceOriginalValue = 107;
 
     std::string value;
@@ -299,7 +299,7 @@ URM_TEST(TestInvalidResourceTuning, {
  * Cross-Reference id: [F]
  */
 URM_TEST(TestOutOfBoundsResourceTuning, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
     int32_t testResourceOriginalValue = 107;
 
     std::string value;
@@ -341,7 +341,7 @@ URM_TEST(TestOutOfBoundsResourceTuning, {
  * Cross-Reference id: [G]
  */
 URM_TEST(ResourceLogicalToPhysicalTranslationVerification1, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource2.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource2.txt");
     int32_t testResourceOriginalValue = 333;
 
     std::string value;
@@ -387,7 +387,7 @@ URM_TEST(ResourceLogicalToPhysicalTranslationVerification1, {
  * Cross-Reference id: [G]
  */
 URM_TEST(ResourceLogicalToPhysicalTranslationVerification2, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource2.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource2.txt");
     int32_t testResourceOriginalValue = 333;
 
     std::string value;
@@ -440,7 +440,7 @@ URM_TEST(ResourceLogicalToPhysicalTranslationVerification3, {
         SKIP
     }
 
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource2.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource2.txt");
     int32_t testResourceOriginalValue = 333;
 
     std::string value;
@@ -493,7 +493,7 @@ URM_TEST(ResourceLogicalToPhysicalTranslationVerification3, {
  * Cross-Reference id: [G]
  */
 URM_TEST(ResourceLogicalToPhysicalTranslationVerification4, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource2.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource2.txt");
     int32_t testResourceOriginalValue = 333;
 
     std::string value;
@@ -537,7 +537,7 @@ URM_TEST(ResourceLogicalToPhysicalTranslationVerification4, {
  * Cross-Reference id: [H]
  */
 URM_TEST(TestUnSupportedResourceTuningVerification, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource4.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource4.txt");
     int32_t testResourceOriginalValue = 516;
 
     std::string value;
@@ -575,7 +575,7 @@ URM_TEST(TestUnSupportedResourceTuningVerification, {
  *  Cross-Reference id: [I]
  */
 URM_TEST(ResourceOperationModeVerification, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource3.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource3.txt");
     int32_t testResourceOriginalValue = 4400;
 
     std::string value;
@@ -617,7 +617,7 @@ URM_TEST(ResourceOperationModeVerification, {
  * Cross-Reference id: [J]
  */
 URM_TEST(ClientPermissionsVerification, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource1.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource1.txt");
     int32_t testResourceOriginalValue = 240;
 
     std::string value;
@@ -706,7 +706,7 @@ URM_TEST(SignalNullOrInvalidRequestVerification, {
  * Cross-Reference id: [C]
  */
 URM_TEST(SignalClientPermissionChecksVerification, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/sched_util_clamp_max.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("sched_util_clamp_max.txt");
     int32_t testResourceOriginalValue = 684;
 
     std::string value;
@@ -746,7 +746,7 @@ URM_TEST(SignalClientPermissionChecksVerification, {
  * Cross-Reference id: [D]
  */
 URM_TEST(SignalOutOfBoundsResourceTuning, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("sched_util_clamp_min.txt");
     int32_t testResourceOriginalValue = 300;
 
     std::string value;
@@ -788,7 +788,7 @@ URM_TEST(SignalOutOfBoundsResourceTuning, {
  * Cross-Reference id: [E]
  */
 URM_TEST(SignalTargetCompatabilityVerificationChecks, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("sched_util_clamp_min.txt");
     int32_t testResourceOriginalValue = 300;
 
     std::string value;
@@ -825,7 +825,7 @@ URM_TEST(SignalTargetCompatabilityVerificationChecks, {
  * Cross-Reference id: [F]
  */
 URM_TEST(SignalNonSupportedSignalProvisioningVerification, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("sched_util_clamp_min.txt");
     int32_t testResourceOriginalValue = 300;
 
     std::string value;
@@ -896,7 +896,7 @@ URM_TEST(SignalNonSupportedSignalProvisioningVerification, {
  * Cross-Reference id: [A]
  */
 URM_TEST(SingleClientTuneRequest, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("sched_util_clamp_min.txt");
     int32_t testResourceOriginalValue = 300;
 
     // Check the original value for the Resource
@@ -943,9 +943,9 @@ URM_TEST(SingleClientTuneRequest, {
  */
 URM_TEST(SingleClientTuneRequestMultipleResources, {
     // Check the original value for each of the Resource
-    std::string testResourceName1 = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
-    std::string testResourceName2 = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
-    std::string testResourceName3 = "/var/lib/urm/tests/nodes/sched_util_clamp_max.txt";
+    std::string testResourceName1 = GET_FULL_NODE_PATH("scaling_max_freq.txt");
+    std::string testResourceName2 = GET_FULL_NODE_PATH("scaling_min_freq.txt");
+    std::string testResourceName3 = GET_FULL_NODE_PATH("sched_util_clamp_max.txt");
 
     int32_t testResourceOriginalValue1 = 114;
     int32_t testResourceOriginalValue2 = 107;
@@ -1042,7 +1042,7 @@ URM_TEST(SingleClientTuneRequestMultipleResources, {
  */
 URM_TEST(TestMultipleClientsHigherIsBetterPolicy1, {
     // Check the original value for the Resource
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_max_freq.txt");
     int32_t testResourceOriginalValue = 114;
 
     std::string value = AuxRoutines::readFromFile(testResourceName);
@@ -1116,7 +1116,7 @@ URM_TEST(TestMultipleClientsHigherIsBetterPolicy1, {
  */
 URM_TEST(TestMultipleClientsHigherIsBetterPolicy2, {
     // Check the original value for the Resource
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_max_freq.txt");
     int32_t testResourceOriginalValue = 114;
 
     std::string value;
@@ -1200,7 +1200,7 @@ URM_TEST(TestMultipleClientsHigherIsBetterPolicy2, {
  */
 URM_TEST(TestMultipleClientsLowerIsBetterPolicy, {
     // Check the original value for the Resource
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
     int32_t testResourceOriginalValue = 107;
 
     std::string value;
@@ -1328,7 +1328,7 @@ URM_TEST(TestMultipleClientsLowerIsBetterPolicy, {
  * Cross-Reference id: ['E']
  */
 URM_TEST(TestMultipleClientsLazyApplyPolicy, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource5.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource5.txt");
     int32_t testResourceOriginalValue = 17;
 
     std::string value;
@@ -1409,7 +1409,7 @@ URM_TEST(TestMultipleClientsLazyApplyPolicy, {
  */
 URM_TEST(TestSimplePassThroughApplication, {
     // Check the original value for the Resource
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource1.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource1.txt");
     int32_t testResourceOriginalValue = 240;
 
     std::string value;
@@ -1459,7 +1459,7 @@ URM_TEST(TestSimplePassThroughApplication, {
  */
 URM_TEST(TestSimplePassThroughConcurrentApplication, {
     // Check the original value for the Resource
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource1.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource1.txt");
     int32_t testResourceOriginalValue = 240;
 
     std::string value;
@@ -1487,7 +1487,7 @@ URM_TEST(TestSimplePassThroughConcurrentApplication, {
 
     } else if(rc1 > 0) {
         waitpid(rc1, nullptr, 0);
-    
+
         SysResource* resourceList = new SysResource[1];
         memset(&resourceList[0], 0, sizeof(SysResource));
         resourceList[0].mResCode = CONSTRUCT_RES_CODE(0xff, 0x000e);
@@ -1532,9 +1532,9 @@ URM_TEST(TestSimplePassThroughConcurrentApplication, {
  */
 URM_TEST(TestMultipleClientsTuneRequestDifferentResources, {
     // Check the original value for the Resource
-    std::string testResourceName1 = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
-    std::string testResourceName2 = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
-    std::string testResourceName3 = "/var/lib/urm/tests/nodes/sched_util_clamp_max.txt";
+    std::string testResourceName1 = GET_FULL_NODE_PATH("scaling_min_freq.txt");
+    std::string testResourceName2 = GET_FULL_NODE_PATH("scaling_max_freq.txt");
+    std::string testResourceName3 = GET_FULL_NODE_PATH("sched_util_clamp_max.txt");
 
     int32_t testResourceOriginalValue1 = 107;
     int32_t testResourceOriginalValue2 = 114;
@@ -1652,7 +1652,7 @@ URM_TEST(TestMultipleClientsTuneRequestDifferentResources, {
  * Cross-Reference id: ['S1']
  */
 URM_TEST(SingleClientSequentialRequests, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_max_freq.txt");
     int32_t testResourceOriginalValue = 114;
     int64_t handle;
 
@@ -1711,7 +1711,7 @@ URM_TEST(SingleClientSequentialRequests, {
  * Cross-Reference id: ['S2']
  */
 URM_TEST(MultipleClientTIDsConcurrentRequests, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_max_freq.txt");
     int32_t testResourceOriginalValue = 114;
     int64_t handle;
 
@@ -1785,7 +1785,7 @@ URM_TEST(MultipleClientTIDsConcurrentRequests, {
  * Cross-Reference id: ['U1']
  */
 URM_TEST(TestInfiniteDurationTuneRequestAndValidUntuning, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
     int32_t testResourceOriginalValue = 107;
     int64_t handle;
 
@@ -1843,7 +1843,7 @@ URM_TEST(TestInfiniteDurationTuneRequestAndValidUntuning, {
  * Cross-Reference id: ['U2']
  */
 URM_TEST(TestInfiniteDurationTuneRequestAndInValidUntuning, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
     int32_t testResourceOriginalValue = 107;
     int64_t handle;
 
@@ -1920,7 +1920,7 @@ URM_TEST(TestInfiniteDurationTuneRequestAndInValidUntuning, {
  * Cross-Reference id: ['H']
  */
 URM_TEST(TestPriorityBasedResourceAcquisition1, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
     int32_t testResourceOriginalValue = 107;
     int64_t handle;
 
@@ -1988,7 +1988,7 @@ URM_TEST(TestPriorityBasedResourceAcquisition1, {
  * Cross-Reference id: ['H']
  */
 URM_TEST(TestPriorityBasedResourceAcquisition2, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
     int32_t testResourceOriginalValue = 107;
     int64_t handle;
 
@@ -2064,7 +2064,7 @@ URM_TEST(TestPriorityBasedResourceAcquisition2, {
  * Cross-Reference id: ['H']
  */
 URM_TEST(TestPriorityBasedResourceAcquisition3, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_max_freq.txt");
     int32_t testResourceOriginalValue = 114;
     int64_t handle;
 
@@ -2133,7 +2133,7 @@ URM_TEST(TestPriorityBasedResourceAcquisition3, {
  * Cross-Reference id: ['R1']
  */
 URM_TEST(TestRequestValidRetuning, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_max_freq.txt");
     int32_t testResourceOriginalValue = 114;
     int64_t handle;
 
@@ -2197,7 +2197,7 @@ URM_TEST(TestRequestValidRetuning, {
  * Cross-Reference id: ['R2']
  */
 URM_TEST(TestRequestInvalidRetuning1, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_max_freq.txt");
     int32_t testResourceOriginalValue = 114;
     int64_t handle;
 
@@ -2260,7 +2260,7 @@ URM_TEST(TestRequestInvalidRetuning1, {
  * Cross-Reference id: ['R3']
  */
 URM_TEST(TestRequestInvalidRetuning2, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("sched_util_clamp_min.txt");
     int32_t testResourceOriginalValue = 300;
 
     std::string value;
@@ -2319,7 +2319,7 @@ URM_TEST(TestClusterTypeResourceTuneRequest1, {
         SKIP
     }
 
-    std::string nodePath = "/var/lib/urm/tests/nodes/cluster_type_resource_%d_cluster_id.txt";
+    std::string nodePath = GET_FULL_NODE_PATH("cluster_type_resource_%d_cluster_id.txt");
 
     char path[128];
     snprintf(path, sizeof(path), nodePath.c_str(), physicalClusterID);
@@ -2368,7 +2368,7 @@ URM_TEST(TestClusterTypeResourceTuneRequest2, {
         SKIP
     }
 
-    std::string nodePath = "/var/lib/urm/tests/nodes/cluster_type_resource_%d_cluster_id.txt";
+    std::string nodePath = GET_FULL_NODE_PATH("cluster_type_resource_%d_cluster_id.txt");
 
     char path[128];
     snprintf(path, sizeof(path), nodePath.c_str(), physicalClusterID);
@@ -2975,7 +2975,7 @@ URM_TEST(TestWriteTo_scaling_min_freq_Node2, {
 URM_TEST(TestConcurrentWriteTo_scaling_min_freq_Node3, {
     // Apply a value to scaling_min_freq for the Gold Cluster
     // i.e. logical cluster id = 1
-    std::string testResourceName = "/var/lib/urm/tests/nodes/scaling_min_freq.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("scaling_min_freq.txt");
 
     std::string originalValueString = AuxRoutines::readFromFile(testResourceName);
     int32_t originalValue = C_STOI(originalValueString);
@@ -3478,7 +3478,7 @@ URM_TEST(TestWriteTo_pm_qos_resume_latency_us2, {
  * Cross-Reference id: [A]
  */
 URM_TEST(TestSingleClientTuneSignal1, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("sched_util_clamp_min.txt");
     int32_t testResourceOriginalValue = 300;
 
     std::string value;
@@ -3519,9 +3519,9 @@ URM_TEST(TestSingleClientTuneSignal1, {
  * Cross-Reference id: [A]
  */
 URM_TEST(TestSingleClientTuneSignal2, {
-    std::string testResourceName1 = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt";
-    std::string testResourceName2 = "/var/lib/urm/tests/nodes/sched_util_clamp_max.txt";
-    std::string testResourceName3 = "/var/lib/urm/tests/nodes/scaling_max_freq.txt";
+    std::string testResourceName1 = GET_FULL_NODE_PATH("sched_util_clamp_min.txt");
+    std::string testResourceName2 = GET_FULL_NODE_PATH("sched_util_clamp_max.txt");
+    std::string testResourceName3 = GET_FULL_NODE_PATH("scaling_max_freq.txt");
 
     int32_t originalValues[] = {300, 684, 114};
 
@@ -3581,8 +3581,15 @@ URM_TEST(TestSingleClientTuneSignal2, {
     E_ASSERT((originalValue == originalValues[2]));
 })
 
+/**
+ * API under test: untuneSignal
+ * - A client tries to tune a Signal, which tunes multiple Resources
+ * - Verified the Resource Node is updated to the configured value
+ * - Verify that the Resource Node is reset once the Signal timeouts.
+ * Cross-Reference id: [A]
+ */
 URM_TEST(TestSignalUntuning, {
-    std::string testResourceName = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("sched_util_clamp_min.txt");
     int32_t testResourceOriginalValue = 300;
 
     std::string value;
@@ -3625,6 +3632,96 @@ URM_TEST(TestSignalUntuning, {
     newValue = C_STOI(value);
     std::cout<<LOG_BASE<<testResourceName<<" Reset Value: "<<newValue<<std::endl;
     E_ASSERT((newValue == testResourceOriginalValue));
+})
+
+/**
+ * API under test: Retune
+ * - Client can use the Retune API to extend the duration of a previously issued tuneSignal.
+ * - Note only the client which issue the Tune Request with H1, can issue a Retune API for H1.
+ * - Here the issues a Tune Request for 8 seconds, however later Retunes it to 15 seconds.
+ * - Verify that the Configured values is applied to the Resource Node for this entire duration, i.e. till
+ *   15 seconds from the point of issuing the Retune Request.
+ * - Note, Retune API only supports extending the duration of a Request and not decreasing it.
+ * Cross-Reference id: ['R1']
+ */
+URM_TEST(TestSignalValidRetuning, {
+    ResourceHolder testResources[] = {
+        {
+            .name = GET_FULL_NODE_PATH("sched_util_clamp_min.txt"),
+            .expectedValue = 883,
+            .originalValue = 300,
+        },
+        {
+            .name = GET_FULL_NODE_PATH("sched_util_clamp_max.txt"),
+            .expectedValue = 920,
+            .originalValue = 684,
+        },
+        {
+            .name = GET_FULL_NODE_PATH("scaling_max_freq.txt"),
+            .expectedValue = 1555,
+            .originalValue = 114,
+        }
+    };
+
+    std::string value;
+    int32_t originalValue, newValue;
+
+    for(int32_t i = 0; i < 3; i++) {
+        value = AuxRoutines::readFromFile(testResources[i].name);
+        originalValue = C_STOI(value);
+        LOG_ORIGINAL(testResources[i].name, originalValue);
+        E_ASSERT((originalValue == testResources[i].originalValue));
+    }
+
+    int64_t handle =
+        tuneSignal(
+            (CONSTRUCT_SIG_CODE(0x0d, 0x0005)),
+            DEFAULT_SIGNAL_TYPE,
+            8000,
+            RequestPriority::REQ_PRIORITY_HIGH,
+            "",
+            "",
+            0,
+            nullptr);
+
+    std::cout<<LOG_BASE<<"Handle Returned: "<<handle<<std::endl;
+    E_ASSERT((handle > 0));
+
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+
+    for(int32_t i = 0; i < 3; i++) {
+        value = AuxRoutines::readFromFile(testResources[i].name);
+        newValue = C_STOI(value);
+        LOG_CONFIGURED(testResources[i].name, newValue);
+        E_ASSERT((newValue == testResources[i].expectedValue));
+    }
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    // The Request will expire in 4 seconds, hence the value should reset to original value
+    // However we issue a Retune Request for this handle, and change the duration to 15 seconds
+    // Hence, when we check the value after 10 seconds, the configurations should still be in effect.
+    int8_t status = retuneSignal(handle, 15000);
+    std::cout<<LOG_BASE<<"Retune Status: "<<(int32_t)status<<std::endl;
+    E_ASSERT((status == 0));
+
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+    for(int32_t i = 0; i < 3; i++) {
+        value = AuxRoutines::readFromFile(testResources[i].name);
+        newValue = C_STOI(value);
+        LOG_CONFIGURED(testResources[i].name, newValue);
+        E_ASSERT((newValue == testResources[i].expectedValue));
+    }
+
+    // Wait for Request to expire
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+
+    for(int32_t i = 0; i < 3; i++) {
+        value = AuxRoutines::readFromFile(testResources[i].name);
+        originalValue = C_STOI(value);
+        LOG_ORIGINAL(testResources[i].name, originalValue);
+        E_ASSERT((originalValue == testResources[i].originalValue));
+    }
 })
 
 // Observe only as of now
@@ -3694,29 +3791,29 @@ URM_TEST(TestMultiResourceSignal, {
         SKIP
     }
 
-    std::string clusResource = "/var/lib/urm/tests/nodes/cluster_type_resource_%d_cluster_id.txt";
+    std::string clusResource = GET_FULL_NODE_PATH("cluster_type_resource_%d_cluster_id.txt");
     int32_t physicalClusterID0 = baseline.getExpectedPhysicalCluster(0);
     int32_t physicalClusterID1 = baseline.getExpectedPhysicalCluster(1);
     int32_t physicalClusterID2 = baseline.getExpectedPhysicalCluster(2);
 
     std::vector<ResourceHolder> tunedResources = {
         {
-            .name = "/var/lib/urm/tests/nodes/sched_util_clamp_min.txt",
+            .name = GET_FULL_NODE_PATH("sched_util_clamp_min.txt"),
             .expectedValue = 668,
             .originalValue = -1,
         },
         {
-            .name = "/var/lib/urm/tests/nodes/sched_util_clamp_max.txt",
+            .name = GET_FULL_NODE_PATH("sched_util_clamp_max.txt"),
             .expectedValue = 897,
             .originalValue = -1,
         },
         {
-            .name = "/var/lib/urm/tests/nodes/target_test_resource1.txt",
+            .name = GET_FULL_NODE_PATH("target_test_resource1.txt"),
             .expectedValue = 231,
             .originalValue = -1
         },
         {
-            .name = "/var/lib/urm/tests/nodes/scaling_max_freq.txt",
+            .name = GET_FULL_NODE_PATH("scaling_max_freq.txt"),
             .expectedValue = 1533,
             .originalValue = -1
         },
@@ -3736,7 +3833,7 @@ URM_TEST(TestMultiResourceSignal, {
             .originalValue = -1
         },
         {
-            .name = "/var/lib/urm/tests/nodes/target_test_resource4.txt",
+            .name = GET_FULL_NODE_PATH("target_test_resource4.txt"),
             .expectedValue = 41128,
             .originalValue = -1
         },
@@ -4151,4 +4248,36 @@ URM_TEST(TestCgroupWriteAndReset6, {
     delete[] resourceList1;
 })
 
-REGISTER_AND_TRIGGER_SUITE(TEST_CLASS)
+int32_t main(int32_t argc, char* argv[]) {
+    const char* shortPrompts = "hp:";
+    const struct option longPrompts[] = {
+        {"help", no_argument, nullptr, 'h'},
+        {"npath", required_argument, nullptr, 'p'},
+        {nullptr, no_argument, nullptr, 0}
+    };
+
+    std::string nodesPath = "";
+
+    int32_t c;
+    while((c = getopt_long(argc, argv, shortPrompts, longPrompts, nullptr)) != -1) {
+        switch(c) {
+            case 'h':
+                std::cout<<"This suite tests end-to-end URM request flow by simulating a real client."<<std::endl;
+                std::cout<<"Usage: <path_to_binary> [--npath <path_to_custom_test_nodes>]"<<std::endl;
+                std::cout<<"Example: /usr/bin/UrmIntegrationTests"<<std::endl;
+                std::cout<<"Or: /usr/bin/UrmIntegrationTests --npath \"/run/urm/tests/nodes\""<<std::endl;
+                return 0;
+            case 'p':
+                nodesPath = optarg;
+                break;
+            default:
+                break;
+        }
+    }
+
+    if(nodesPath.length() > 0) {
+        TestAggregator::setBaseTestNodePath(nodesPath);
+    }
+
+    return TestAggregator::runAll(TEST_CLASS);
+}
