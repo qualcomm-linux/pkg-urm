@@ -1,5 +1,6 @@
 # Include directories for the entire project
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Include)
+include_directories(${CMAKE_BINARY_DIR}/modula/CoreModules/Include)
 include_directories(${CMAKE_SOURCE_DIR}/modula/Components/Include)
 include_directories(${CMAKE_SOURCE_DIR}/modula/Common/Include)
 include_directories(${CMAKE_SOURCE_DIR}/modula/CoreModules/Include)
@@ -30,12 +31,10 @@ set(FLORET_INCLUDE_DIRS "")
 
 if(ENABLE_FLORET)
     # Use pkg-config to find floret
-    pkg_check_modules(PC_FLORET QUIET floret)
-    if(PC_FLORET_FOUND)
-        set(FLORET_FOUND TRUE)
-        set(FLORET_LIBRARIES ${PC_FLORET_LIBRARIES})
-        set(FLORET_INCLUDE_DIRS ${PC_FLORET_INCLUDE_DIRS})
-    endif()
+    pkg_check_modules(PC_FLORET REQUIRED floret)
+    set(FLORET_FOUND TRUE)
+    set(FLORET_LIBRARIES ${PC_FLORET_LIBRARIES})
+    set(FLORET_INCLUDE_DIRS ${PC_FLORET_INCLUDE_DIRS})
 endif()
 
 if(FLORET_FOUND)
@@ -71,13 +70,13 @@ if(FLORET_FOUND)
     install(TARGETS ml_inference_lib DESTINATION ${CMAKE_INSTALL_LIBDIR})
     install(
         FILES ${CMAKE_SOURCE_DIR}/contextual-classifier/Artifacts/floret_model_supervised.bin
-        DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/urm/classifier
+        DESTINATION ${URM_DATA_DIR}/classifier
     )
 endif()
 
 install(
   DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Configs/
-  DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/urm/classifier/
+  DESTINATION ${URM_DATA_DIR}/classifier/
   FILES_MATCHING
   PATTERN "*.txt"
   PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ

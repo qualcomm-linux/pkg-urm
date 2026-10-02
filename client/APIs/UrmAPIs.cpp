@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include <mutex>
 #include <memory>
@@ -488,4 +488,9 @@ int8_t relaySignal(uint32_t sigId,
     }
 
     return -1;
+}
+
+// Retune / Renew Configurations made through tuneSignal or tuneResources
+int8_t retuneSignal(int64_t handle, int64_t duration) {
+    return retuneResources(handle, duration);
 }

@@ -29,9 +29,11 @@ This string is used as:
 ---
 
 ## Step 2: Adding Target-Specific Resources
-The Resources needed for this target can be added to userspace-resource-manager-extensions-public/Configs/ResourcesConfig.yaml.
+The Resources needed for this target can be added to {path-to-urm}/plugins/Configs/ResourcesConfig.yaml.
 
-Suppose the target name is: qcs9200, a new Resource could look like:
+Suppose the target name is: qcs9200.
+To add a new Resource, navigate to the target-specific ResourcesConfig.yaml file, which will be at
+"{path-to-urm}/plugins/Configs/target-specific/qcs9200/ResourcesConfig.yaml" and add the new Resource, for example:
 
 ```yaml
     ResourceConfigs:
@@ -64,7 +66,7 @@ Edit the new file to add all the Configurations required.
 
 ## Step 4: (Optional) Create Post-Boot Script
 
-URM already provides a common post-boot script in: userspace-resource-manager-extensions-public/initscripts/post_boot/post_boot_common.sh
+URM already provides a common post-boot script in: {path-to-urm}/plugins/initscripts/post_boot/post_boot_common.sh
 
 If additional configurations are required on top of the common script, then target-specific postboot scripts can be created. The script must have the following name:
 

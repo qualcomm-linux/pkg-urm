@@ -35,4 +35,4 @@ Userspace Resource Manager (URM) without touching its core codebase. It ships:
 
 ## License
 
-BSD-3-Clause-Clear
+BSD-3-Clause
