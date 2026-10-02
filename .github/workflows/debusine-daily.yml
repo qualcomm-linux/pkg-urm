@@ -23,7 +23,16 @@ jobs:
           fetch-depth: 0
       - id: set-matrix
         name: Set matrix
+        env:
+          # Unset Actions variables expand to an empty string, so only "true" disables.
+          DEBUSINE_WORKFLOWS_DISABLED: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED }}
         run: |
+          if [ "$DEBUSINE_WORKFLOWS_DISABLED" = "true" ]; then
+            echo 'matrix=[]' >> "$GITHUB_OUTPUT"
+            echo 'Debusine workflows are disabled for this repository.'
+            exit 0
+          fi
+
           # Define candidate branches
           candidates='["qli/debian/latest", "qli/debian/trixie", "qli-staging/debian/latest", "qli-staging/debian/trixie", "qcom/debian/latest", "qcom/debian/trixie"]'
 
@@ -44,6 +53,7 @@ jobs:
   debusine-scheduled:
     name: Debusine (${{ matrix.target_branch }})
     needs: check-branches
+    if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED != 'true' }}
     strategy:
       fail-fast: false
       matrix:

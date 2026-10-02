@@ -20,7 +20,7 @@ permissions:
 jobs:
   debusine:
     name: Debusine
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED != 'true' && github.event.workflow_run.conclusion == 'success' }}
     uses: qualcomm-linux/debusine-action/.github/workflows/debusine.yml@main
     with:
       source_ref: refs/pull/${{ github.event.workflow_run.pull_requests[0].number }}/merge
@@ -40,7 +40,7 @@ jobs:
     if: always()
     steps:
       - name: Set success status
-        if: needs.debusine.result == 'success'
+        if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED == 'true' || needs.debusine.result == 'success' }}
         uses: actions/github-script@v9
         with:
           script: |
@@ -50,11 +50,15 @@ jobs:
               sha: context.payload.workflow_run.head_sha,
               state: 'success',
               context: 'Debusine CI',
-              description: 'Debusine CI passed'
+              description: process.env.DEBUSINE_WORKFLOWS_DISABLED === 'true'
+                ? 'Debusine CI disabled for this repository'
+                : 'Debusine CI passed'
             });
+        env:
+          DEBUSINE_WORKFLOWS_DISABLED: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED }}
 
       - name: Set failure status
-        if: needs.debusine.result != 'success'
+        if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED != 'true' && needs.debusine.result != 'success' }}
         uses: actions/github-script@v9
         with:
           script: |
