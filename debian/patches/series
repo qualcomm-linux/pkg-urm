@@ -1,3 +1,2 @@
-always-install-systemd-service.patch
 detect-libyaml-at-top-level.patch
 link-classifier-against-restunecore.patch

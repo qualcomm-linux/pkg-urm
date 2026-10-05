@@ -9,6 +9,7 @@ Build-Depends-Arch:
  cmake,
  libsystemd-dev,
  libyaml-dev,
+ systemd-dev,
  pkgconf,
 Standards-Version: 4.6.2
 Vcs-Git: https://github.com/qualcomm-linux/pkg-urm.git
