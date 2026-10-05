@@ -4,3 +4,10 @@ userspace-resource-manager-tests: no-symbols-control-file
 userspace-resource-manager-tests: package-contains-documentation-outside-usr-share-doc [var/lib/urm/tests/nodes/*.txt]
 # Private test-library
 userspace-resource-manager-tests: package-name-doesnt-match-sonames libRestuneTestUtils1
+# Test suite executables do not provide manual pages.
+userspace-resource-manager-tests: no-manual-page [usr/bin/UrmComponentTests]
+userspace-resource-manager-tests: no-manual-page [usr/bin/UrmIntegrationTests]
+# Upstream's copyright notice omits years, which Lintian currently requires.
+# See https://lists.debian.org/debian-legal/2026/08/msg00000.html
+# and https://github.com/qualcomm-linux/pkg-urm/issues/40
+userspace-resource-manager-tests: copyright-without-copyright-notice

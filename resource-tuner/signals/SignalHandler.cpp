@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include "Signal.h"
 #include "SignalInternal.h"
@@ -125,6 +125,11 @@ static Request* createResourceTuningRequest(Signal* signal) {
         request->setProperties(signal->getProperties());
         request->setClientPID(signal->getClientPID());
         request->setClientTID(signal->getClientTID());
+        request->setSource(
+            CONSTRUCT_SIG_CODE(
+                signal->getSignalCode(),
+                signal->getSignalType())
+            );
 
         std::vector<Resource*>* signalLocks = signalInfo->mSignalResources;
 

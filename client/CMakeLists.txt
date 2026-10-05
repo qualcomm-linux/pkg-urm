@@ -2,7 +2,7 @@
 file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/APIs/*.cpp"
                   "${CMAKE_CURRENT_SOURCE_DIR}/Comm/Socket/*.cpp")
 add_library(UrmClient ${SOURCES})
-set_target_properties(UrmClient PROPERTIES VERSION 1.0.0 SOVERSION 1)
+set_target_properties(UrmClient PROPERTIES VERSION 1.1.0 SOVERSION 1)
 target_link_libraries(UrmClient PRIVATE UrmAuxUtils)
 target_include_directories(UrmClient PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/APIs/Include)
 target_include_directories(UrmClient PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Comm/Socket/Include)

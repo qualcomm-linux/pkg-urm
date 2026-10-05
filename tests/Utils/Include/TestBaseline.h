@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #ifndef TEST_BASELINE_H
 #define TEST_BASELINE_H
@@ -9,6 +9,7 @@
 
 #include "YamlParser.h"
 #include "UrmSettings.h"
+#include "Config.h"
 
 #define TEST_ROOT "TestConfigs"
 #define TARGET_NAME_LIST "TargetName"
@@ -18,7 +19,7 @@
 #define NUM_CLUSERS "NumClusters"
 #define NUM_CORES "NumCores"
 
-const static std::string baselineYamlFilePath = "/usr/share/urm/tests/configs/Baseline.yaml";
+const static std::string baselineYamlFilePath = URM_TEST_DATA_DIR "configs/Baseline.yaml";
 
 typedef struct {
     int32_t mLogicalID;

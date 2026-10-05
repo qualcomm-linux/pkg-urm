@@ -1496,17 +1496,87 @@ FeatureConfigs:
 
 ```text
 .
+├── ci
 ├── client
+│   ├── APIs
+│   │   └── Include
+│   └── Comm
+│       └── Socket
+│           └── Include
 ├── configs
 ├── contextual-classifier
-├── debian
+│   ├── Artifacts
+│   ├── Configs
+│   └── Include
 ├── docs
+│   ├── Examples
+│   │   ├── Extensions
+│   │   └── Relay
+│   ├── Figures
+│   └── UserGuide
 ├── extensions
+│   └── Include
 ├── modula
+│   ├── Common
+│   │   └── Include
+│   ├── Components
+│   │   └── Include
+│   └── CoreModules
+│       └── Include
+├── plugins
+│   ├── Configs
+│   │   └── target-specific
+│   │       ├── alorp
+│   │       ├── cq2390m
+│   │       ├── glymur
+│   │       ├── glymur-crd -> glymur
+│   │       ├── hamoa
+│   │       ├── hamoa-iot-evk -> hamoa
+│   │       ├── hamoa-iot-som -> hamoa
+│   │       ├── purwa
+│   │       ├── purwa-iot-evk -> purwa
+│   │       ├── purwa-iot-som -> purwa
+│   │       ├── qcm6490
+│   │       ├── qcs615
+│   │       ├── qcs6490 -> qcm6490
+│   │       ├── qcs8275 -> qcs8300
+│   │       ├── qcs8300
+│   │       ├── qcs8845 -> alorp
+│   │       ├── qcs9075 -> qcs9100
+│   │       ├── qcs9100
+│   │       ├── sa7255p -> qcs8300
+│   │       ├── sa8775p -> qcs9100
+│   │       ├── seraph
+│   │       ├── seraphp -> seraph
+│   │       ├── x1e80100 -> hamoa
+│   │       └── x1p42100 -> purwa
+│   ├── docs
+│   ├── Extensions
+│   │   └── Include
+│   └── initscripts
+│       └── post_boot
 ├── public_headers
-└── resource-tuner
-```
+├── resource-tuner
+│   ├── core
+│   │   ├── Include
+│   │   └── Server
+│   │       └── Include
+│   ├── dbus-modules
+│   │   └── Include
+│   ├── init
+│   │   └── Include
+│   └── signals
+│       └── Include
+└── tests
+    ├── Component
+    ├── Configs
+    │   └── ResourceSysFsNodes
+    ├── Integration
+    └── Utils
+        └── Include
 
+78 directories
+```
 
 ## 7.2. Userspace Resource Manager Key Points
 
