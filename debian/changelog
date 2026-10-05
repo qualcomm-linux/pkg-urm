@@ -1,8 +1,8 @@
 userspace-resource-manager (0.4.12-0qli1~bpo13+1~) UNRELEASED; urgency=medium
 
-  * Unreleased changes
+  * Rebuild for trixie.
 
- -- Debusine Action Bot <noreply@bot.invalid>  Thu, 27 Aug 2026 13:33:13 +0000
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 05 Oct 2026 12:20:04 +0200
 
 userspace-resource-manager (0.4.12-0qli1) forky; urgency=medium
 
