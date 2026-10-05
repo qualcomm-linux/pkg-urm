@@ -1,5 +1,5 @@
 Source: userspace-resource-manager
-Section: libs
+Section: admin
 Maintainer: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
 Uploaders:
  Agathe Porte <agathe.porte@oss.qualcomm.com>,
@@ -36,7 +36,6 @@ Description: System Resource Provisioning Framework - shared libraries
 
 Package: userspace-resource-manager
 Architecture: any
-Section: admin
 Depends:
  liburm1 (= ${binary:Version}),
  ${misc:Depends},
@@ -66,7 +65,6 @@ Description: System Resource Provisioning Framework - development files
 
 Package: userspace-resource-manager-tests
 Architecture: any
-Section: admin
 Depends:
  userspace-resource-manager (= ${binary:Version}),
  ${misc:Depends},
