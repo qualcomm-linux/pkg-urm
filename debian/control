@@ -1,5 +1,5 @@
 Source: userspace-resource-manager
-Section: libs
+Section: admin
 Maintainer: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
 Uploaders:
  Agathe Porte <agathe.porte@oss.qualcomm.com>,
@@ -9,6 +9,7 @@ Build-Depends-Arch:
  cmake,
  libsystemd-dev,
  libyaml-dev,
+ systemd-dev,
  pkgconf,
 Standards-Version: 4.6.2
 Vcs-Git: https://github.com/qualcomm-linux/pkg-urm.git
@@ -35,7 +36,6 @@ Description: System Resource Provisioning Framework - shared libraries
 
 Package: userspace-resource-manager
 Architecture: any
-Section: admin
 Depends:
  liburm1 (= ${binary:Version}),
  ${misc:Depends},
@@ -65,7 +65,6 @@ Description: System Resource Provisioning Framework - development files
 
 Package: userspace-resource-manager-tests
 Architecture: any
-Section: admin
 Depends:
  userspace-resource-manager (= ${binary:Version}),
  ${misc:Depends},

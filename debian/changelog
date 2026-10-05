@@ -1,8 +1,31 @@
-userspace-resource-manager (0.4.6-0qli3~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.4.12-0qli1~) UNRELEASED; urgency=medium
 
-  * Unreleased changes
+  [ GitHub Service Bot ]
+  * New upstream release: 0.4.12
 
- -- Debusine Action Bot <noreply@bot.invalid>  Thu, 27 Aug 2026 13:08:30 +0000
+  [ Kartik Nema ]
+  * d/patches: Drop patches applied upstream (0.4.12):
+    - d/p/drop-unusual-wantedby-basic-target.patch
+    - d/p/install-urm-daemon-to-sbin.patch
+    - d/p/use-lib-systemd-service.patch
+  * d/control: Build-depend on systemd-dev for pkg-config data.
+    - Dropping d/p/always-install-systemd-service.patch
+  * d/patches: Refresh patches.
+  * Fix CMake project version for 0.4.12 release
+    - d/p/fix-cmake-version.patch
+  * d/urm.manpages: Install upstream docs.
+  * d/urm-tests.install: Move test data to /usr/share/urm.
+  * d/liburm-dev.install: Deploy urm.pc pkgconf meta-data.
+  * d/urm.install: Install upstream tmpfiles.d drop-in.
+  * d/copyright: Update to upstream's BSD-3-Clause.
+
+  [ Lukas Märdian ]
+  * d/control: Drop inherited field.
+  * d/t/component-tests: Adopt to new /tmp/urm-tests.XXXXXX fixtures.
+  * d/upstream: Add metadata.
+  * d/copyright: Adopt for remaining BSD-3-Clause-Clear code.
+
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 05 Oct 2026 11:21:51 +0200
 
 userspace-resource-manager (0.4.6-0qli2) forky; urgency=medium
 
