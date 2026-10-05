@@ -1,4 +1,4 @@
-userspace-resource-manager (0.4.12-0qli1~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.4.12-0qli1) forky; urgency=medium
 
   [ GitHub Service Bot ]
   * New upstream release: 0.4.12
@@ -27,7 +27,7 @@ userspace-resource-manager (0.4.12-0qli1~) UNRELEASED; urgency=medium
   * d/urm-tests.lintian-overrides: Ignore missing manpages for test binaries.
   * d/*.lintian-overrides: Ignore copyright-without-copyright-notice.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 05 Oct 2026 12:03:13 +0200
+ -- Debusine Action Bot <noreply@bot.invalid>  Mon, 05 Oct 2026 10:04:44 +0000
 
 userspace-resource-manager (0.4.6-0qli2) forky; urgency=medium
 
