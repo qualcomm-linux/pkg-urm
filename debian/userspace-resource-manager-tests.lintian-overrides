@@ -4,3 +4,6 @@ userspace-resource-manager-tests: no-symbols-control-file
 userspace-resource-manager-tests: package-contains-documentation-outside-usr-share-doc [var/lib/urm/tests/nodes/*.txt]
 # Private test-library
 userspace-resource-manager-tests: package-name-doesnt-match-sonames libRestuneTestUtils1
+# Test suite executables do not provide manual pages.
+userspace-resource-manager-tests: no-manual-page [usr/bin/UrmComponentTests]
+userspace-resource-manager-tests: no-manual-page [usr/bin/UrmIntegrationTests]
