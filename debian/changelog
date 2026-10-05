@@ -24,8 +24,9 @@ userspace-resource-manager (0.4.12-0qli1~) UNRELEASED; urgency=medium
   * d/t/component-tests: Adopt to new /tmp/urm-tests.XXXXXX fixtures.
   * d/upstream: Add metadata.
   * d/copyright: Adopt for remaining BSD-3-Clause-Clear code.
+  * d/urm-tests.lintian-overrides: Ignore missing manpages for test binaries.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 05 Oct 2026 11:21:51 +0200
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 05 Oct 2026 11:58:30 +0200
 
 userspace-resource-manager (0.4.6-0qli2) forky; urgency=medium
 
