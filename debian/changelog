@@ -25,8 +25,9 @@ userspace-resource-manager (0.4.12-0qli1~) UNRELEASED; urgency=medium
   * d/upstream: Add metadata.
   * d/copyright: Adopt for remaining BSD-3-Clause-Clear code.
   * d/urm-tests.lintian-overrides: Ignore missing manpages for test binaries.
+  * d/*.lintian-overrides: Ignore copyright-without-copyright-notice.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 05 Oct 2026 11:58:30 +0200
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Mon, 05 Oct 2026 12:03:13 +0200
 
 userspace-resource-manager (0.4.6-0qli2) forky; urgency=medium
 
