@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include <string>
 #include <dirent.h>
@@ -302,6 +302,11 @@ int32_t PostProcessingBlock::fetchUsecaseDetails(int32_t pid,
             srcElement = i + 1;
             break;
         }
+    }
+
+    // No camera source detected — not a camera/live workload, skip signaling.
+    if (srcElement == 0) {
+        return -1;
     }
 
     // Extract frame rate once; used by encoder and preview paths.

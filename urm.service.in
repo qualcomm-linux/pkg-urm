@@ -5,11 +5,12 @@ After=sysinit.target
 
 [Service]
 Restart=on-failure
-ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/urm
+ExecStartPre=+systemd-tmpfiles --create urm.conf
 ExecStartPre=-/usr/libexec/urm/initscripts/post_boot/post_boot.sh
+ExecStart=@CMAKE_INSTALL_FULL_SBINDIR@/urm
 TimeoutStopSec=2
 Delegate=yes
 Slice=urm.slice
 
 [Install]
-WantedBy=basic.target multi-user.target
+WantedBy=multi-user.target

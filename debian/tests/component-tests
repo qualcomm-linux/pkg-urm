@@ -24,8 +24,17 @@ if [ ! -w /sys/fs/cgroup ]; then
     exit 1
 fi
 
+# The resource configs resolve /tmp/*/urm/tests/nodes, so use a directory
+# directly under /tmp even when AUTOPKGTEST_TMP or TMPDIR is elsewhere.
+nodes_tmp_base=$(mktemp -d /tmp/urm-tests.XXXXXX)
+trap 'rm -rf "$nodes_tmp_base"' 0
+trap 'exit 1' HUP INT TERM
+nodes_dir="$nodes_tmp_base/urm/tests/nodes"
+mkdir -p "$nodes_dir"
+cp -R /usr/share/urm/tests/nodes/. "$nodes_dir/"
+
 rc=0
-UrmComponentTests || rc=$?
+UrmComponentTests --npath "$nodes_dir" || rc=$?
 
 # Keep the HTML report for post-mortem analysis, including on failure.
 if [ -n "$AUTOPKGTEST_ARTIFACTS" ] && [ -f tests_report.html ]; then

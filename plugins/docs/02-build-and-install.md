@@ -24,23 +24,6 @@ After this step, the following must be available on your system:
 
 ---
 
-## Step 2: Build URM Extensions
-
-    git clone https://github.com/qualcomm/userspace-resource-manager-extensions
-    cd userspace-resource-manager-extensions
-
-    # Create a clean build directory
-    rm -rf build && mkdir build && cd build
-
-    # Configure with CMake
-    cmake .. -DCMAKE_INSTALL_PREFIX=/
-
-    # Build
-    cmake --build .
-
-
----
-
 ### What Gets Built
 
 The CMake build compiles all .cpp files under Extensions/ into a single shared library:
@@ -61,7 +44,7 @@ Source files compiled into UrmPlugin.so:
 
 ---
 
-## Step 3: Install
+## Step 2: Install
 
 ```bash
     sudo cmake --install .
@@ -87,7 +70,7 @@ on most systems.
 
 ---
 
-## Step 4: Start URM Server
+## Step 3: Start URM Server
 
 From the Build Directory, simply run the executable:
 

@@ -1,56 +1,57 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include "UrmSettings.h"
+#include "Config.h"
 
 int32_t UrmSettings::serverOnlineStatus = false;
 MetaConfigs UrmSettings::metaConfigs{};
 TargetConfigs UrmSettings::targetConfigs{};
 
-const std::string UrmSettings::mTargetConfDir = "/etc/urm/target/";
+const std::string UrmSettings::mTargetConfDir = URM_TARGET_DIR;
 
 const std::string UrmSettings::mCommonResourcesPath =
-                                    "/etc/urm/common/ResourcesConfig.yaml";
+                                    URM_COMMON_DIR "ResourcesConfig.yaml";
 const std::string UrmSettings::mCustomResourcesPath =
-                                    "/etc/urm/custom/ResourcesConfig.yaml";
+                                    URM_CUSTOM_DIR "ResourcesConfig.yaml";
 const std::string UrmSettings::mDevIndexedResourcesPath =
-                                    "/etc/urm/target/ResourcesConfig.yaml";
+                                    URM_TARGET_DIR "ResourcesConfig.yaml";
 
 const std::string UrmSettings::mCommonSignalsPath =
-                                    "/etc/urm/common/SignalsConfig.yaml";
+                                    URM_COMMON_DIR "SignalsConfig.yaml";
 const std::string UrmSettings::mCustomSignalsPath =
-                                    "/etc/urm/custom/SignalsConfig.yaml";
+                                    URM_CUSTOM_DIR "SignalsConfig.yaml";
 const std::string UrmSettings::mDevIndexedSignalsPath =
-                                    "/etc/urm/target/SignalsConfig.yaml";
+                                    URM_TARGET_DIR "SignalsConfig.yaml";
 
 const std::string UrmSettings::mCommonInitPath =
-                                    "/etc/urm/common/InitConfig.yaml";
+                                    URM_COMMON_DIR "InitConfig.yaml";
 const std::string UrmSettings::mCustomInitPath =
-                                    "/etc/urm/custom/InitConfig.yaml";
+                                    URM_CUSTOM_DIR "InitConfig.yaml";
 const std::string UrmSettings::mDevIndexedInitPath =
-                                    "/etc/urm/target/InitConfig.yaml";
+                                    URM_TARGET_DIR "InitConfig.yaml";
 
 const std::string UrmSettings::mCommonPropertiesPath =
-                                    "/etc/urm/common/PropertiesConfig.yaml";
+                                    URM_COMMON_DIR "PropertiesConfig.yaml";
 const std::string UrmSettings::mCustomPropertiesPath =
-                                    "/etc/urm/custom/PropertiesConfig.yaml";
+                                    URM_CUSTOM_DIR "PropertiesConfig.yaml";
 const std::string UrmSettings::mDevIndexedPropertiesPath =
-                                    "/etc/urm/target/PropertiesConfig.yaml";
+                                    URM_TARGET_DIR "PropertiesConfig.yaml";
 
 const std::string UrmSettings::mCustomTargetPath =
-                                    "/etc/urm/custom/TargetConfig.yaml";
+                                    URM_CUSTOM_DIR "TargetConfig.yaml";
 const std::string UrmSettings::mDevIndexedTargetPath =
-                                    "/etc/urm/target/TargetConfig.yaml";
+                                    URM_TARGET_DIR "TargetConfig.yaml";
 
 const std::string UrmSettings::mCustomExtFeaturesPath =
-                                    "/etc/urm/custom/ExtFeaturesConfig.yaml";
+                                    URM_CUSTOM_DIR "ExtFeaturesConfig.yaml";
 const std::string UrmSettings::mDevIndexedExtFeatPath =
-                                    "/etc/urm/target/ExtFeaturesConfig.yaml";
+                                    URM_TARGET_DIR "ExtFeaturesConfig.yaml";
 
 const std::string UrmSettings::mCustomAppConfigPath =
-                                    "/etc/urm/custom/PerApp.yaml";
+                                    URM_CUSTOM_DIR "PerApp.yaml";
 const std::string UrmSettings::mDevIndexedAppPath =
-                                    "/etc/urm/target/PerApp.yaml";
+                                    URM_TARGET_DIR "PerApp.yaml";
 
 const std::string UrmSettings::mDeviceNamePath =
                                     "/sys/devices/soc0/machine";
@@ -60,7 +61,7 @@ const std::string UrmSettings::focusedCgroup =
                                     "urm.slice/focused.apps";
 
 const std::string UrmSettings::mPersistenceFile =
-                                    "/var/lib/urm/resource_original_values.txt";
+                                    URM_RUNSTATE_DIR "urm_saved_values.txt";
 
 int32_t UrmSettings::isServerOnline() {
     return serverOnlineStatus;

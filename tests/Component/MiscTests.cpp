@@ -1,11 +1,12 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include "UrmPlatformAL.h"
 #include "TestUtils.h"
 #include "MemoryPool.h"
 #include "Request.h"
 #include "Signal.h"
+#include "Config.h"
 #include "URMTests.h"
 
 #define TEST_CLASS "COMPONENT"
@@ -108,7 +109,7 @@ URM_TEST(TestAuxRoutineFileExists, {
     int8_t fileExists = AuxRoutines::fileExists("AuxParserTest.yaml");
     E_ASSERT((fileExists == false));
 
-    fileExists = AuxRoutines::fileExists("/usr/share/urm/tests/configs/NetworkConfig.yaml");
+    fileExists = AuxRoutines::fileExists(URM_TEST_DATA_DIR "configs/NetworkConfig.yaml");
     E_ASSERT((fileExists == false));
 
     fileExists = AuxRoutines::fileExists(UrmSettings::mCommonResourcesPath);

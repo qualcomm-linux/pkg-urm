@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 /*!
  * \file UrmAPIs.h
@@ -162,6 +162,18 @@ int8_t relaySignal(uint32_t sigId,
  *            - -1: Otherwise
  */
 int8_t untuneSignal(int64_t handle);
+
+/**
+ * @brief Modify the duration of a previously issued Tune Signal (tuneSignal).
+ * @details Use this API to increase the duration (in milliseconds) of an existing Request
+ *          issued through tuneSignal
+ * @param handle Request Handle, returned by tuneSignal API call.
+ * @param duration The new duration for the previously issued Tune request. A value of -1 denotes infinite duration.
+ * @return int8_t:\n
+ *            - 0: If the Request was successfully submitted to the server.\n
+ *            - -1: Otherwise.
+ */
+int8_t retuneSignal(int64_t handle, int64_t duration);
 
 #ifdef __cplusplus
 }
