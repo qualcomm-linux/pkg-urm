@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include <chrono>
 #include <string>
@@ -24,9 +24,10 @@
 #include "RestuneInternal.h"
 #include "ContextualClassifier.h"
 #include "ClientGarbageCollector.h"
+#include "Config.h"
 
 #define CLASSIFIER_TAG "CONTEXTUAL_CLASSIFIER"
-#define CLASSIFIER_CONFIGS_DIR "/etc/urm/classifier/"
+#define CLASSIFIER_CONFIGS_DIR URM_CLASSIFIER_DIR
 
 static const std::string FT_MODEL_PATH =
     CLASSIFIER_CONFIGS_DIR "floret_model_supervised.bin";
@@ -34,6 +35,8 @@ static const std::string IGNORE_PROC_PATH =
     CLASSIFIER_CONFIGS_DIR "classifier-blocklist.txt";
 static const std::string ALLOW_LIST_PATH =
     CLASSIFIER_CONFIGS_DIR "allow-list.txt";
+static const std::string PRIORITY_CLIENTS_LIST_PATH =
+    CLASSIFIER_CONFIGS_DIR "priority-clients.txt";
 
 #ifdef USE_FLORET
 #include "MLInference.h"
@@ -58,6 +61,7 @@ static const int32_t pendingQueueControlSize = 30;
 ContextualClassifier::ContextualClassifier() {
     this->mClientTracker = 0;
     this->mActiveClientCount = 0;
+    this->mIsPriorityClient = false;
     this->mActiveAppThreshold = 1; // single-app mode
 
     // In multi-app mode, at most 3 concurrent apps are supported
@@ -109,15 +113,15 @@ static ResIterable* createMovePidResource(int32_t cGroupdId, pid_t pid) {
 ContextualClassifier::~ContextualClassifier() {
     this->Terminate();
     if(this->mInference) {
-		delete this->mInference;
+        delete this->mInference;
         this->mInference = NULL;
-	}
+    }
 }
 
 ErrCode ContextualClassifier::Init() {
     LOGI(CLASSIFIER_TAG, "Classifier module init");
 
-    this->LoadIgnoredProcesses();
+    this->loadStaticProcData();
 
     // Single worker thread for classification
     this->mClassifierMain = std::thread(&ContextualClassifier::ClassifierMain, this);
@@ -166,6 +170,47 @@ ErrCode ContextualClassifier::Terminate() {
     return RC_SUCCESS;
 }
 
+void ContextualClassifier::trackClient(int64_t handle) {
+    if(this->mIsPriorityClient) {
+        // Priority clients are not tracked here, they are long-living
+        // and should not be evicted unless they die.
+        // Pulse Monitor takes care of eviction for such clients.
+        return;
+    }
+
+    if(handle != -1) {
+        this->mCurrRestuneHandles.push(
+            {this->mClientTracker, handle}
+        );
+    }
+}
+
+void ContextualClassifier::reShuffle() {
+    if(this->mCurrRestuneHandles.empty()) {
+        this->mActiveClientCount = 0;
+    } else if(this->mActiveClientCount >= this->mActiveAppThreshold &&
+        !this->mCurrRestuneHandles.empty()) {
+        uint64_t minClientId = this->mCurrRestuneHandles.front().first;
+        int8_t evictedClient = false;
+        while(!this->mCurrRestuneHandles.empty()) {
+            if(minClientId == this->mCurrRestuneHandles.front().first) {
+                int64_t handle = this->mCurrRestuneHandles.front().second;
+                if(handle > 0) {
+                    this->untuneRequestHelper(handle);
+                }
+                this->mCurrRestuneHandles.pop();
+                evictedClient = true;
+            } else {
+                break;
+            }
+        }
+
+        if(evictedClient && this->mActiveClientCount > 0) {
+            this->mActiveClientCount--;
+        }
+    }
+}
+
 void ContextualClassifier::ClassifierMain() {
     pthread_setname_np(pthread_self(), "urmClassifier");
     while (true) {
@@ -186,43 +231,27 @@ void ContextualClassifier::ClassifierMain() {
         ev = this->mPendingEv.front();
         this->mPendingEv.pop();
 
+        // Clear out mIsPriorityClient flag
+        this->mIsPriorityClient = false;
+
         if(ev.type == CC_APP_OPEN) {
             if(ev.pid != -1) {
                 std::string comm;
                 uint32_t sigId = URM_SIG_APP_OPEN;
                 uint32_t sigType = DEFAULT_SIGNAL_TYPE;
                 uint32_t ctxDetails = 0U;
+
                 if(AuxRoutines::fetchComm(ev.pid, comm) != 0) {
                     continue;
                 }
 
+                this->mIsPriorityClient = this->checkClientPriority(comm);
+
                 // Step 1:
                 // Keep active client count accurate. A client can own multiple
                 // handles, so evict all handles for the oldest client together.
-                if(this->mCurrRestuneHandles.empty()) {
-                    this->mActiveClientCount = 0;
-                }
-
-                if(this->mActiveClientCount >= this->mActiveAppThreshold &&
-                   !this->mCurrRestuneHandles.empty()) {
-                    uint64_t minClientId = this->mCurrRestuneHandles.front().first;
-                    int8_t evictedClient = false;
-                    while(!this->mCurrRestuneHandles.empty()) {
-                        if(minClientId == this->mCurrRestuneHandles.front().first) {
-                            int64_t handle = this->mCurrRestuneHandles.front().second;
-                            if(handle > 0) {
-                                this->untuneRequestHelper(handle);
-                            }
-                            this->mCurrRestuneHandles.pop();
-                            evictedClient = true;
-                        } else {
-                            break;
-                        }
-                    }
-
-                    if(evictedClient && this->mActiveClientCount > 0) {
-                        this->mActiveClientCount--;
-                    }
+                if(!this->mIsPriorityClient) {
+                    this->reShuffle();
                 }
 
                 size_t handlesBeforeClient = this->mCurrRestuneHandles.size();
@@ -253,11 +282,8 @@ void ContextualClassifier::ClassifierMain() {
                     postCb((void*)&postProcessData);
 
                     // Record any Configurations made
-                    if(postProcessData.mHandleAcq != -1) {
-                        this->mCurrRestuneHandles.push(
-                            {this->mClientTracker, postProcessData.mHandleAcq}
-                        );
-                    }
+                    this->trackClient(postProcessData.mHandleAcq);
+
                 } else {
                     // Figure out workload type
                     int32_t contextType =
@@ -267,18 +293,14 @@ void ContextualClassifier::ClassifierMain() {
                         // Will return the sigID based on the workload
                         // For example: game, browser, multimedia
                         sigId = this->GetSignalIDForWorkload(contextType);
-        
+
                         int64_t handle = acquireSignal(
                             sigId,
                             sigType,
                             ev.pid,
                             ev.tgid
                         );
-                        if(handle != -1) {
-                            this->mCurrRestuneHandles.push(
-                                {this->mClientTracker, handle}
-                            );
-                        }
+                        this->trackClient(handle);
                     }
                 }
 
@@ -406,15 +428,8 @@ uint32_t ContextualClassifier::GetSignalIDForWorkload(int32_t contextType) {
     return URM_SIG_APP_OPEN;
 }
 
-void ContextualClassifier::LoadIgnoredProcesses() {
-    int8_t isAllowedListPresent = false;
-    std::string filePath = ALLOW_LIST_PATH;
-    if(AuxRoutines::fileExists(filePath)) {
-        isAllowedListPresent = true;
-    } else {
-        filePath = IGNORE_PROC_PATH;
-    }
-
+void ContextualClassifier::loadProcessNames(const std::string& filePath,
+                                            std::unordered_set<std::string>& names) {
     std::ifstream file(filePath);
     if(!file.is_open()) {
         LOGW(CLASSIFIER_TAG,
@@ -435,20 +450,62 @@ void ContextualClassifier::LoadIgnoredProcesses() {
             size_t last = segment.find_last_not_of(" \t\n\r");
             segment = segment.substr(first, (last - first + 1));
             if(!segment.empty()) {
-                if(isAllowedListPresent) {
-                    this->mAllowedProcesses.insert(segment);
-                } else {
-                    this->mIgnoredProcesses.insert(segment);
-                }
+                names.insert(segment);
             }
         }
     }
-    LOGI(CLASSIFIER_TAG, "Loaded filter processes");
+}
+
+void ContextualClassifier::loadStaticProcData() {
+    // First Load Allowed / Blacklisted processes
+    if(AuxRoutines::fileExists(ALLOW_LIST_PATH)) {
+        this->loadProcessNames(ALLOW_LIST_PATH, this->mAllowedProcesses);
+    } else {
+        this->loadProcessNames(IGNORE_PROC_PATH, this->mIgnoredProcesses);
+    }
+
+    // Next Load Priority (long-living) clients
+    this->loadProcessNames(PRIORITY_CLIENTS_LIST_PATH, this->mPriorityClients);
+
+    // All static proc data loaded
+    LOGI(CLASSIFIER_TAG, "Successfully loaded static proc data");
+}
+
+int8_t ContextualClassifier::isContainerProcess(pid_t pid) {
+    // Check if the process lives inside a container cgroup scope by reading
+    // /proc/<pid>/cgroup. A Docker container init process has a path like:
+    //   0::/system.slice/docker-<CID>.scope
+    // Moving it out of this scope causes systemd to remove the now-empty scope,
+    // which breaks subsequent docker exec calls with:
+    //   "can't open cgroup: .../docker-<CID>.scope: No such file or directory"
+
+    // TODO: extend to Kubernetes container runtimes when needed:
+    //   - containerd (k8s default runtime): cgroup path contains "containerd-<CID>.scope"
+    //   - CRI-O (OpenShift / k8s alternative): cgroup path contains "crio-<CID>.scope"
+
+    std::ifstream cgroupFile("/proc/" + std::to_string(pid) + "/cgroup");
+    if(cgroupFile.is_open()) {
+        std::string line;
+        while(std::getline(cgroupFile, line)) {
+            if(line.find("docker-") != std::string::npos &&
+               line.find(".scope")  != std::string::npos) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 int8_t ContextualClassifier::shouldProcBeIgnored(int32_t evType, pid_t pid) {
     if(evType == CC_APP_CLOSE) {
         return false;
+    }
+
+    // Skip Docker container init processes to avoid breaking docker exec.
+    if(this->isContainerProcess(pid)) {
+        LOGI(CLASSIFIER_TAG,
+             "Ignoring Docker container process PID: " + std::to_string(pid));
+        return true;
     }
 
     std::string procName = "";
@@ -469,6 +526,10 @@ int8_t ContextualClassifier::shouldProcBeIgnored(int32_t evType, pid_t pid) {
     }
 
     return false;
+}
+
+int8_t ContextualClassifier::checkClientPriority(const std::string& procName) {
+    return this->mPriorityClients.count(procName) != 0U;
 }
 
 void ContextualClassifier::MoveAppThreadsToCGroup(pid_t incomingPID,
@@ -511,7 +572,7 @@ void ContextualClassifier::MoveAppThreadsToCGroup(pid_t incomingPID,
         // Anything to issue
         if(request->getResourcesCount() > 0) {
             // Record:
-            this->mCurrRestuneHandles.push({this->mClientTracker, request->getHandle()});
+            this->trackClient(request->getHandle());
 
             // fast path to Request Queue
             submitResProvisionRequest(request, true);
@@ -542,7 +603,7 @@ void ContextualClassifier::configureAppSignals(pid_t incomingPID,
             );
 
             if(handle != -1) {
-                this->mCurrRestuneHandles.push({this->mClientTracker, handle});
+                this->trackClient(handle);
             }
         }
     }

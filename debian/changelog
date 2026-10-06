@@ -1,6 +1,7 @@
-userspace-resource-manager (0.4.6-2~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.4.12-2~) UNRELEASED; urgency=medium
 
-  * WIP — update changelog before next release
+  [ URM Maintainers ]
+  Update version to  v0.4.12
 
  -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Tue, 01 Sep 2026 20:58:02 +0000
 
