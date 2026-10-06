@@ -23,7 +23,6 @@ Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- liburm1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: System Resource Provisioning Framework - shared libraries
