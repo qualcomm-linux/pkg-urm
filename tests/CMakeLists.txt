@@ -10,8 +10,6 @@ if(BUILD_TESTS)
     )
 
     # Install Custom Resource Nodes
-    # These stand in for sysfs nodes and are written to while the tests run, so
-    # they are variable state and belong under /var/lib.
     install(
         DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Configs/ResourceSysFsNodes/
         DESTINATION ${CMAKE_INSTALL_DATADIR}/urm/tests/nodes

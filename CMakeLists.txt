@@ -14,7 +14,6 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 # Custom Build Options
 option(BUILD_CLASSIFIER "Classifier" ON)
-option(BUILD_EXTENSIONS "Extensions" ON)
 option(BUILD_TESTS "Test Framework, Unit and Integration Tests" OFF)
 
 # Base directory for common/target/classifier data
