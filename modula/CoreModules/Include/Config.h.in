@@ -1,9 +1,21 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #ifndef URM_GLOB_CONF_H
 #define URM_GLOB_CONF_H
 
 #define LIBDIR_PATH "@CMAKE_INSTALL_FULL_LIBDIR@"
+
+#define URM_DATA_DIR       "@URM_DATA_DIR@/"
+#define URM_COMMON_DIR     URM_DATA_DIR "common/"
+#define URM_TARGET_DIR     URM_DATA_DIR "target/"
+#define URM_CLASSIFIER_DIR URM_DATA_DIR "classifier/"
+#define URM_CUSTOM_DIR "@URM_CUSTOM_DIR@/"
+#define URM_RUNSTATE_DIR "@URM_RUNSTATEDIR@/"
+#define URM_SOCKET_PATH URM_RUNSTATE_DIR "restune_sock"
+#define URM_CACHE_DIR           "@URM_CACHE_DIR@/"
+#define URM_CACHE_PRUNED_DIR    URM_CACHE_DIR "pruned"
+#define URM_CACHE_UNFILTERED_DIR URM_CACHE_DIR "unfiltered"
+#define URM_TEST_DATA_DIR "@CMAKE_INSTALL_FULL_DATADIR@/urm/tests/"
 
 #endif

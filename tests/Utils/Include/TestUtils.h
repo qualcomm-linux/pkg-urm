@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #ifndef TEST_UTILS_H
 #define TEST_UTILS_H
@@ -48,6 +48,9 @@ static std::string getTimestamp() {
 #define LOG_END std::cout<<"["<<getTimestamp()<<"] "<<__func__<<": Run Successful"<<std::endl;
 #define LOG_BASE "["<<getTimestamp()<<"] "<<__func__<<":"<<__LINE__<<") "
 #define LOG_SKIP(message) std::cout<<"["<<getTimestamp()<<"] "<<__func__<<": Skipped, Reason: "<<message<<std::endl;
+
+#define LOG_ORIGINAL(node, val) std::cout<<LOG_BASE<<node<<" Original Value: "<<val<<std::endl;
+#define LOG_CONFIGURED(node, val) std::cout<<LOG_BASE<<node<<" Configured Value: "<<val<<std::endl;
 
 #define C_STOI(value) ({                                                            \
     int32_t parsedValue = -1;                                                       \

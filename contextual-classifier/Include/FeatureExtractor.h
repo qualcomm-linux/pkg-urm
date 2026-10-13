@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #ifndef FEATURE_EXTRACTOR_H
 #define FEATURE_EXTRACTOR_H
@@ -13,8 +13,9 @@
 #include <vector>
 
 #include "FeaturePruner.h"
+#include "Config.h"
 
-#define CLASSIFIER_CONF_DIR "/etc/urm/classifier/"
+#define CLASSIFIER_CONF_DIR URM_CLASSIFIER_DIR
 const std::string IGNORE_TOKENS_PATH = CLASSIFIER_CONF_DIR "ignore-tokens.txt";
 
 class FeatureExtractor {

@@ -145,4 +145,4 @@ How to contact maintainers. E.g. GitHub Issues, GitHub Discussions could be indi
 
 ## License
 
-*userspace-resource-moderator* is licensed under the [BSD-3-Clause-Clear license](https://spdx.org/licenses/BSD-3-Clause-Clear.html). See [LICENSE.txt](LICENSE.txt) for the full license text.
+*userspace-resource-moderator* is licensed under the [BSD-3-Clause license](https://spdx.org/licenses/BSD-3-Clause.html). See [LICENSE.txt](LICENSE.txt) for the full license text.

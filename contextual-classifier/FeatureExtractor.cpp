@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include "AuxRoutines.h"
 #include "FeatureExtractor.h"
@@ -18,8 +18,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#define PRUNED_DIR "/var/cache/pruned"
-#define UNFILTERED_DIR "/var/cache/unfiltered"
+#define PRUNED_DIR URM_CACHE_PRUNED_DIR
+#define UNFILTERED_DIR URM_CACHE_UNFILTERED_DIR
 #define SCANNER_TAG "FeatureExtractor"
 #define LOG_LINES 20
 

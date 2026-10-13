@@ -1,9 +1,10 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include "RestuneInternal.h"
 
 static int8_t getRequestPriority(int8_t clientPermissions, int8_t reqSpecifiedPriority) {
+    // Check to ensure pre-validated signals can directly pass through
     if(clientPermissions == PERMISSION_SYSTEM) {
         switch(reqSpecifiedPriority) {
             case RequestPriority::REQ_PRIORITY_HIGH:
@@ -20,6 +21,10 @@ static int8_t getRequestPriority(int8_t clientPermissions, int8_t reqSpecifiedPr
                 return THIRD_PARTY_HIGH;
             case RequestPriority::REQ_PRIORITY_LOW:
                 return THIRD_PARTY_LOW;
+            // To handle pre-validated signals
+            case PriorityLevel::THIRD_PARTY_HIGH:
+            case PriorityLevel::THIRD_PARTY_LOW:
+                return reqSpecifiedPriority;
             default:
                 return -1;
         }
@@ -152,8 +157,8 @@ static int8_t VerifyIncomingRequest(Request* req) {
 
     // Check Request Priority
     int8_t reqSpecifiedPriority = req->getPriority();
-    if(reqSpecifiedPriority > RequestPriority::REQ_PRIORITY_LOW ||
-       reqSpecifiedPriority < RequestPriority::REQ_PRIORITY_HIGH) {
+    if(reqSpecifiedPriority > PriorityLevel::THIRD_PARTY_LOW ||
+       reqSpecifiedPriority < PriorityLevel::SYSTEM_HIGH) {
         TYPELOGV(VERIFIER_INVALID_PRIORITY, reqSpecifiedPriority);
         return false;
     }

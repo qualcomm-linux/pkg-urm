@@ -1,0 +1,4 @@
+# Upstream's copyright notice omits years, which Lintian currently requires.
+# See https://lists.debian.org/debian-legal/2026/08/msg00000.html
+# and https://github.com/qualcomm-linux/pkg-urm/issues/40
+userspace-resource-manager-extensions: copyright-without-copyright-notice

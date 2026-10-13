@@ -1,6 +1,3 @@
-use-lib-systemd-service.patch
-always-install-systemd-service.patch
-install-urm-daemon-to-sbin.patch
-drop-unusual-wantedby-basic-target.patch
+fix-cmake-version.patch
 detect-libyaml-at-top-level.patch
 link-classifier-against-restunecore.patch

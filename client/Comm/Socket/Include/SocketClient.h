@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #ifndef RESOURCE_TUNER_SOCKET_CLIENT_H
 #define RESOURCE_TUNER_SOCKET_CLIENT_H
@@ -15,8 +15,9 @@
 #include "Utils.h"
 #include "ClientEndpoint.h"
 #include "ErrCodes.h"
+#include "Config.h"
 
-#define RESTUNE_SOCKET_PATH "/run/restune_sock"
+#define RESTUNE_SOCKET_PATH URM_SOCKET_PATH
 
 class SocketClient : public ClientEndpoint {
 private:

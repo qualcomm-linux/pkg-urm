@@ -1,5 +1,5 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-// SPDX-License-Identifier: BSD-3-Clause-Clear
+// SPDX-License-Identifier: BSD-3-Clause
 
 #include <thread>
 
@@ -9,11 +9,12 @@
 #include "URMTests.h"
 #include "TestUtils.h"
 #include "UrmPlatformAL.h"
+#include "Config.h"
 
 // Test configuration and paths
 #define TEST_CLASS "INTEGRATION"
 #define TEST_SUBCAT "CC_INTEGRATION"
-#define CLASSIFIER_CONFIGS_DIR "/etc/urm/classifier/"
+#define CLASSIFIER_CONFIGS_DIR URM_CLASSIFIER_DIR
 
 // Path to the Floret supervised learning model binary
 static const std::string FT_MODEL_PATH = CLASSIFIER_CONFIGS_DIR "floret_model_supervised.bin";
@@ -31,7 +32,7 @@ URM_TEST(TestGstreamerPerAppConfigValidated, {
     // Wait for service to settle
     std::this_thread::sleep_for(std::chrono::milliseconds(1800));
 
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource1.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource1.txt");
     int32_t testResourceOriginalValue = 240;
 
     std::string value;
@@ -114,7 +115,7 @@ URM_TEST(TestViPerAppConfigValidated, {
     // Wait for service to settle
     std::this_thread::sleep_for(std::chrono::milliseconds(1800));
 
-    std::string testResourceName = "/var/lib/urm/tests/nodes/target_test_resource1.txt";
+    std::string testResourceName = GET_FULL_NODE_PATH("target_test_resource1.txt");
     int32_t testResourceOriginalValue = 240;
 
     std::string value;

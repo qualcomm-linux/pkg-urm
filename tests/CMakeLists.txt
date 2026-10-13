@@ -1,20 +1,18 @@
 if(BUILD_TESTS)
     # Install Test Configs
     # These are read-only test fixtures, not configuration an administrator is
-    # expected to edit, so they belong under datadir rather than sysconfdir.
+    # expected to edit.
     file(GLOB testConfigs "${CMAKE_CURRENT_SOURCE_DIR}/Configs/*.yaml")
     install(
         FILES ${testConfigs}
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/urm/tests/configs/
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/urm/tests/configs
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
     )
 
     # Install Custom Resource Nodes
-    # These stand in for sysfs nodes and are written to while the tests run, so
-    # they are variable state and belong under /var/lib.
     install(
         DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Configs/ResourceSysFsNodes/
-        DESTINATION ${CMAKE_INSTALL_LOCALSTATEDIR}/lib/urm/tests/nodes
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/urm/tests/nodes
         FILES_MATCHING
         PATTERN "*.txt"
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
@@ -67,12 +65,10 @@ if(BUILD_TESTS)
 
         if(ENABLE_FLORET)
             # Use pkg-config to find floret
-            pkg_check_modules(PC_FLORET QUIET floret)
-            if(PC_FLORET_FOUND)
-                set(FLORET_FOUND TRUE)
-                set(FLORET_LIBRARIES ${PC_FLORET_LIBRARIES})
-                set(FLORET_INCLUDE_DIRS ${PC_FLORET_INCLUDE_DIRS})
-            endif()
+            pkg_check_modules(PC_FLORET REQUIRED floret)
+            set(FLORET_FOUND TRUE)
+            set(FLORET_LIBRARIES ${PC_FLORET_LIBRARIES})
+            set(FLORET_INCLUDE_DIRS ${PC_FLORET_INCLUDE_DIRS})
         endif()
 
         if(FLORET_FOUND)

@@ -1,16 +1,16 @@
-# Userspace Resource Manager Extensions (URM Extensions)
+# URM Extensions / Plugins
 
-Official repository for URM Extensions project. This project provides **customizations and extensions** for the [Userspace Resource Manager (URM)](https://github.com/qualcomm/userspace-resource-manager).
+URM Extensions provides **customizations and extensions**, which are applied on top of the core URM framework.
 
 ## Overview
 
-The **Userspace Resource Manager (URM)** provides a standard upstream framework for managing system resources through a well-defined set of resources and signals. However, different targets, segments, and use cases often require:
+URM provides a standard upstream framework for managing system resources through a well-defined set of resources and signals. However, different targets, segments, and use cases often require:
 
 - **Custom resources** beyond the standard upstream set
 - **Target-specific signals** tailored to particular usecase and hardware platforms
 - **Specialized resource provisioning logic** for unique scenarios
 
-The **URM Extensions** framework enables developers to:
+**URM Extensions** enables developers to:
 
 - Add new custom resources and signals without modifying the core URM codebase
 - Override default resource handlers with custom implementations
@@ -19,7 +19,7 @@ The **URM Extensions** framework enables developers to:
 
 ## What's Included
 
-This repository contains:
+As part of Extensions, the following items are included:
 
 - **Extended Configurations**: Custom resource and signal configurations for specific targets
 - **Extension Modules**: Plugin implementations that extend URM's core functionality
@@ -43,7 +43,7 @@ This repository contains:
                           │
 ┌─────────────────────────┼────────────────────────────────┐
 │                         │                                │
-│    URM Extensions (This Project)                         │
+│    URM Extensions (Plugins)                        │
 │  ┌──────────────────────┴──────────────────────────┐     │
 │  │  Custom Resources & Signals                     │     │
 │  │  - GPU resources (power levels, devfreq)        │     │
@@ -71,96 +71,6 @@ Use URM Extensions when you need to:
 | Override default resource provisioning logic                  | Register custom callbacks via extension APIs                     |
 | Support multiple hardware variants                            | Use target-specific config directories `Configs/target-specific` |
 | Add post-processing or validation logic                       | Implement extension modules                                      |
-
-## Branches
-
-**main**: Primary development branch. Contributors should develop submissions based on this branch, and submit pull requests to this branch.
-
-## Requirements
-
-This project depends on the URM project:
-- **Repository**: https://github.com/qualcomm/userspace-resource-manager
-- **Required Libraries**: UrmExtApis, UrmAuxUtils
-- **Required Headers**: Urm/Extensions.h, Urm/UrmPlatformAL.h
-
-## Build and Install Instructions
-
-### On Ubuntu
-
-#### Step 1: Build and Install URM
-
-First, build and install the base URM framework:
-
-```bash
-# Follow the instructions at:
-# https://github.com/qualcomm/userspace-resource-manager#build-and-install-instructions
-```
-
-Successful completion of Step 1 ensures these dependencies are met.
-
-#### Step 2: Build and Install Extension Plugin
-
-Build the extensions module:
-
-```bash
-# Create a build directory
-rm -rf build && mkdir build && cd build
-
-# Configure the project
-cmake .. -DCMAKE_INSTALL_PREFIX=/
-
-# Build the extensions project
-cmake --build .
-
-# Install (requires sudo)
-sudo cmake --install .
-```
-
-**What Step 2 Does**:
-- Builds the extension module (`UrmPlugin.so`)
-- Installs the library to `/usr/lib/urm/`
-- Installs custom configurations to `/etc/urm/target/`
-
-When URM starts, it automatically loads `UrmPlugin.so` and applies the customizations.
-
-#### Step 3: Start URM Server
-
-```bash
-/usr/bin/urm
-```
-
-The URM server will:
-1. Load the base upstream resources and signals
-2. Discover and load `UrmPlugin.so`
-3. Apply custom resources, signals, and handlers from the extensions
-4. Start serving requests with the extended functionality
-
-## Project Structure
-
-```
-userspace-resource-manager-extensions/
-├── Configs/                         # Custom configuration files
-│   ├── InitConfig.yaml              # Initialization settings
-│   ├── ResourcesConfig.yaml         # Custom resource definitions
-│   ├── SignalsConfig.yaml           # Custom signal definitions
-│   ├── PerApp.yaml                  # Per-application configurations
-│   └── target-specific/             # Target-specific overrides
-│       ├── qcm6490/
-│       ├── alorp/
-│       ├── qcs615/
-│       ├── qcs8300/
-│       ├── qcs9100/
-│       └── qcs9075/  (shares config with qcs9100)
-├── Extensions/                      # Extension module implementations
-│   ├── CamPostProcessing.cpp        # GStreamer workload detector
-│   ├── GenieT2T.cpp                 # AI inference extension
-│   ├── PreemptRtExtn.cpp            # RT benchmark extension
-│   ├── PredefCallbacks.cpp          # Predefined IRQ callbacks
-│   └── Helpers.cpp                  # Shared utility functions
-├── docs/                            # Detailed documentation
-│   └── README.md                    
-└── README.md                        # This file
-```
 
 ## Examples: Adding Custom Resources
 
@@ -303,14 +213,6 @@ Please refer to: [`docs/README.md`](docs/README.md)
 
 ## Development
 
-### Contributing
-
-We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for:
-- Code style guidelines
-- Pull request process
-- Testing requirements
-- Documentation standards
-
 ### Adding New Extensions
 
 1. Define your custom resources/signals in the appropriate config files
@@ -318,15 +220,3 @@ We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file
 3. Register callbacks using the extension API
 4. Test thoroughly on target hardware
 5. Submit a pull request with documentation
-
-## Getting in Contact
-
-For questions, issues, or discussions:
-
-* [Report an Issue on GitHub](../../issues)
-* [Open a Discussion on GitHub](../../discussions)
-* [E-mail us](mailto:maintainers.resource-tuner-moderator@qti.qualcomm.com) for general questions
-
-## License
-
-*userspace-resource-manager-extensions* is licensed under the [BSD-3-Clause-Clear license](https://spdx.org/licenses/BSD-3-Clause-Clear.html). See [LICENSE.txt](LICENSE.txt) for the full license text.
