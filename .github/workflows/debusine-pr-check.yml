@@ -21,12 +21,12 @@ jobs:
   debusine:
     name: Debusine
     if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED != 'true' && github.event.workflow_run.conclusion == 'success' }}
-    uses: qualcomm-linux/debusine-action/.github/workflows/debusine.yml@main
+    uses: qualcomm-linux/qli-ci/.github/workflows/debusine.yml@main
     with:
       source_ref: refs/pull/${{ github.event.workflow_run.pull_requests[0].number }}/merge
       target_branch: ${{ github.event.workflow_run.pull_requests[0].base.ref }}
       release: false
-      debusine-action-ref: main
+      qli-ci-ref: main
       debusine-parent-workspace: ${{ vars.DEBUSINE_PARENT_WORKSPACE || 'qli-ci' }}
     secrets:
       DEBUSINE_USER: ${{ secrets.DEBUSINE_USER }}

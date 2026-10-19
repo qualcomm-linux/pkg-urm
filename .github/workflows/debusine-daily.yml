@@ -58,12 +58,12 @@ jobs:
       fail-fast: false
       matrix:
         target_branch: ${{ fromJson(needs.check-branches.outputs.matrix) }}
-    uses: qualcomm-linux/debusine-action/.github/workflows/debusine.yml@main
+    uses: qualcomm-linux/qli-ci/.github/workflows/debusine.yml@main
     with:
       target_branch: ${{ matrix.target_branch }}
       source_ref: refs/heads/${{ matrix.target_branch }}
       release: false
-      debusine-action-ref: main
+      qli-ci-ref: main
       debusine-parent-workspace: ${{ vars.DEBUSINE_PARENT_WORKSPACE || 'qli-ci' }}
       job_index: ${{ strategy.job-index }}
     permissions:

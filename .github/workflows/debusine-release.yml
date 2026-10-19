@@ -21,12 +21,12 @@ jobs:
   debusine:
     name: Debusine
     if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED != 'true' && (startsWith(github.ref_name, 'qli/debian/') || startsWith(github.ref_name, 'qli-staging/debian/') || startsWith(github.ref_name, 'qcom/debian/')) }}
-    uses: qualcomm-linux/debusine-action/.github/workflows/debusine.yml@main
+    uses: qualcomm-linux/qli-ci/.github/workflows/debusine.yml@main
     with:
       target_branch: ${{ github.ref_name }}
       source_ref: refs/heads/${{ github.ref_name }}
       release: ${{ inputs.release }}
-      debusine-action-ref: main
+      qli-ci-ref: main
       debusine-parent-workspace: ${{ vars.DEBUSINE_PARENT_WORKSPACE || 'qli-ci' }}
     permissions:
       contents: write
