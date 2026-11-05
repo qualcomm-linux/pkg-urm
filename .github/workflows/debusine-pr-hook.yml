@@ -6,6 +6,13 @@
 # Note: in addition to the default branch, this workflow file must also be
 # copied into each packaging branch in order to function as intended.
 
+# This is the untrusted half of Debusine PR CI. For fork PRs it runs with a
+# read-only GITHUB_TOKEN and no repository secrets, regardless of the
+# permissions declared below, so it must not need any. It only generates the
+# source package from the PR head and uploads it as an artifact.
+# debusine-pr-check.yml (trusted, workflow_run) then downloads that artifact
+# as data, submits it to Debusine, and does all commit-status reporting.
+
 name: Debusine PR Hook
 
 on:
@@ -17,37 +24,15 @@ on:
 
 permissions:
   contents: read
-  statuses: write
 
 jobs:
-  set-pending-status:
-    name: Create Debusine CI Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set disabled status
-        if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED == 'true' }}
-        uses: actions/github-script@v9
-        with:
-          script: |
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.payload.pull_request.head.sha,
-              state: 'success',
-              context: 'Debusine CI',
-              description: 'Debusine CI disabled for this repository'
-            });
-
-      - name: Set pending status
-        if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED != 'true' }}
-        uses: actions/github-script@v9
-        with:
-          script: |
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.payload.pull_request.head.sha,
-              state: 'pending',
-              context: 'Debusine CI',
-              description: 'Running Debusine CI...'
-            });
+  source-package:
+    name: Source package
+    if: ${{ vars.DEBUSINE_WORKFLOWS_DISABLED != 'true' }}
+    permissions:
+      contents: read
+      packages: read
+    uses: qualcomm-linux/qli-ci/.github/workflows/debusine-source-package.yml@main
+    with:
+      target_branch: ${{ github.base_ref }}
+      qli-ci-ref: main
