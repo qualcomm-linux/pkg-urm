@@ -9,7 +9,15 @@ int64_t tuneResources(int64_t duration,
 
 ```
 
-The tuneResources API is designed to work will all Resource Classes, i.e. Cluster, Core, CGroup, MPAM etc. Following code snippets illustrate this:
+The tuneResources API is designed to work will all Resource Classes, i.e. Cluster, Core, CGroup, MPAM etc. URM validates resources individually: if a request contains both valid and invalid resources, invalid resource entries are skipped and the remaining valid resources continue through processing.
+
+For example, a request may contain two resources:
+- `RES_SCALE_MIN_FREQ` for the big cluster with a value inside the configured thresholds.
+- `RES_SCALE_MAX_FREQ` for the prime cluster with a value outside the configured thresholds, or a resource that is not supported on the target.
+
+In this case, URM skips only the invalid `RES_SCALE_MAX_FREQ` entry and still applies the valid `RES_SCALE_MIN_FREQ` entry. If no valid resources remain after validation, no resource is applied for that request.
+
+Following code snippets illustrate this:
 
 - Cluster Apply Type Resources
 Resources which can have different configured value across different clusters. To tune such a resource, along with the resource "ResCode", the desired cluster must also be passed, i.e. the cluster on which the value should take effect. Here, logical values are used by Resource Tuner to decouple the calling code from the device specifics.

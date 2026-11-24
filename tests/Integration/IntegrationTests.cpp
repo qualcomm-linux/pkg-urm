@@ -125,16 +125,18 @@ URM_TEST(TestPropFetch, {
  *       - Request should have a valid Priority i.e. either HIGH (0) or LOW (1) [D]
  * - Resource Level Tests
  *   - Verifier will iterate over all the Resources part of the Request, and perform the following
- *     tests on each of them. Note if any test fails for any (even one) Resource part of the Request,
- *     then the entire Request shall be dropped.
+ *     tests on each of them. Resources that fail verification are skipped, while the request is
+ *     accepted if at least one resource remains valid.
  *   - Sanity Tests
  *       - Each Resource with the specified ID should exist in the Resource Registry [E]
  *   - Application Tests
  *       - The configured value for the Resource should be in the Range LT, HT as specified by the
  *         Resource Config [F]
  *       - If the Resource has a core level conflict, then Logical to Physical Mapping happens
- *         as part of the Verifier, if the translation cannot be performed then the Request is dropped. [G]
- *       - If the Resource does not support tuning, then the Request will be dropped. [H]
+ *         as part of the Verifier. If translation cannot be performed, that Resource is skipped;
+ *         if no Resources remain valid, no Resource is applied. [G]
+ *       - If the Resource does not support tuning, then that Resource is skipped;
+ *         if no Resources remain valid, no Resource is applied. [H]
  *       - Check if the Resorce can be tuned in the current System mode. Note, each Resource can specify
  *         via Config, the list of Modes (for example: Display On, Doze) it can be tuned in. [I]
  *   - Permission Check:
@@ -242,13 +244,13 @@ URM_TEST(TestClientPriorityAcquisitionVerification, {
 
 /**
  * API under test: Tune
- * - A client sends a Resource(s) Provisioning Request to tune a resource for some (possibly inf) duration
- * - The resource in question does not exist in the Resource Registry, i.e. the Client
- * - has specified an invalid Resource ID. The Request should be dropped.
+ * - A client sends a Resource(s) Provisioning Request to tune resources for some (possibly inf) duration.
+ * - One resource does not exist in the Resource Registry, i.e. the Client has specified an invalid
+ *   Resource ID.
  * - Here we issue a Request with 2 Resources, only one of them is Valid.
- * - Since Verifier checks all the Resource part of the Request, hence when it detects
- *   that one of the Resource does not exist in the Registry, it will drop the Request.
- * - Verify that the Valid Resource Node's value remains unchanged.
+ * - Resource-level verification failures are handled per-resource. The invalid resource should be
+ *   skipped and the valid resource should still be applied.
+ * - Verify that the Valid Resource Node's value is configured and resets after untuning.
  * Cross-Reference id: [E]
  */
 URM_TEST(TestInvalidResourceTuning, {
@@ -283,6 +285,16 @@ URM_TEST(TestInvalidResourceTuning, {
 
     value = AuxRoutines::readFromFile(validResourceName);
     newValue = C_STOI(value);
+    E_ASSERT((newValue == 554));
+
+    int8_t status = untuneResources(handle);
+    std::cout<<LOG_BASE<<"Untune Status: "<<(int32_t)status<<std::endl;
+    E_ASSERT((status == 0));
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    value = AuxRoutines::readFromFile(validResourceName);
+    newValue = C_STOI(value);
     E_ASSERT((newValue == validResourceOriginalValue));
 
     delete[] resourceList;
@@ -293,8 +305,9 @@ URM_TEST(TestInvalidResourceTuning, {
  * - A client sends a Resource(s) Provisioning Request to tune a resource for some (possibly inf) duration
  * - The resource in question has a "lower_is_better" policy.
  * - Each Resource has an associated Low Threshold (LT) and High Threshold (HT).
- * - If a client tries to configure a value which is (< LT) or (> HT), then the Reuqest
- *   should be rejected by the Verifier
+ * - If a client tries to configure a value which is (< LT) or (> HT), then that Resource
+ *   should be skipped by the Verifier. Since this request contains no other valid Resources,
+ *   no Resource is applied.
  * - Verify that the Resource Node's value remains unchanged.
  * Cross-Reference id: [F]
  */
@@ -334,8 +347,8 @@ URM_TEST(TestOutOfBoundsResourceTuning, {
  *   the resource in question has Core Level Conflict.
  * - For such a Resource (part of the Request), Core / Cluster Logical To Physical Translation is
  *   needed.
- * - If the logical Core / Cluster value is invalid, or if translation cannot be performed then the
- *   Request is dropped.
+ * - If the logical Core / Cluster value is invalid, or if translation cannot be performed, then
+ *   that Resource is skipped. Since this request contains no other valid Resources, no Resource is applied.
  * - Here, we setup the values of logical Core and Cluster such that the Translation will fail.
  * - Verify that the Resource Node's value remains unchanged.
  * Cross-Reference id: [G]
@@ -380,8 +393,8 @@ URM_TEST(ResourceLogicalToPhysicalTranslationVerification1, {
  *   the resource in question has Core Level Conflict.
  * - For such a Resource (part of the Request), Core / Cluster Logical To Physical Translation is
  *   needed.
- * - If the logical Core / Cluster value is invalid, or if translation cannot be performed then the
- *   Request is dropped.
+ * - If the logical Core / Cluster value is invalid, or if translation cannot be performed, then
+ *   that Resource is skipped. Since this request contains no other valid Resources, no Resource is applied.
  * - Here, we setup the values of logical Core and Cluster such that the Translation will fail.
  * - Verify that the Resource Node's value remains unchanged.
  * Cross-Reference id: [G]
@@ -426,8 +439,8 @@ URM_TEST(ResourceLogicalToPhysicalTranslationVerification2, {
  *   the resource in question has Core Level Conflict.
  * - For such a Resource (part of the Request), Core / Cluster Logical To Physical Translation is
  *   needed.
- * - If the logical Core / Cluster value is invalid, or if translation cannot be performed then the
- *   Request is dropped.
+ * - If the logical Core / Cluster value is invalid, or if translation cannot be performed, then
+ *   that Resource is skipped. Since translation succeeds here, the Resource remains valid.
  * - Here, we setup the values of logical Core and Cluster such that the Translation will succeed.
  * - Verify that the Resource Node's changes to the desired value.
  * - Verify that once the Request Expires, the Resource Node value is reset.
@@ -486,8 +499,8 @@ URM_TEST(ResourceLogicalToPhysicalTranslationVerification3, {
  *   the resource in question has Core Level Conflict.
  * - For such a Resource (part of the Request), Core / Cluster Logical To Physical Translation is
  *   needed.
- * - If the logical Core / Cluster value is invalid, or if translation cannot be performed then the
- *   Request is dropped.
+ * - If the logical Core / Cluster value is invalid, or if translation cannot be performed, then
+ *   that Resource is skipped. Since this request contains no other valid Resources, no Resource is applied.
  * - Here, we setup the values of logical Core and Cluster such that the Translation will fail.
  * - Verify that the Resource Node's value remains unchanged.
  * Cross-Reference id: [G]
@@ -531,8 +544,8 @@ URM_TEST(ResourceLogicalToPhysicalTranslationVerification4, {
  * API under test: Tune
  * - As part of the Config, a Resource can specify a "supported" bit, which indicates
  *   If Tuning is allowed for that Resource
- * - If a Request tries to tune a Resource with the supported bit set to false, then the
- * - the Request should be dropped.
+ * - If a Request tries to tune a Resource with the supported bit set to false, then that
+ *   Resource is skipped. Since this request contains no other valid Resources, no Resource is applied.
  * - Verify that the Resource Node's value remains unchanged.
  * Cross-Reference id: [H]
  */
@@ -611,8 +624,8 @@ URM_TEST(ResourceOperationModeVerification, {
  * - Each Resource has an associated permission, either system or third_party. Here the
  *   resource in question has system Permissions i.e. only Clients having system permissions
  *   can tune the resource.
- * - The client here only has third_party permissions, hence the request should be rejected
- *   by the Verifier
+ * - The client here only has third_party permissions, hence the Resource should be skipped
+ *   by the Verifier. Since this request contains no other valid Resources, no Resource is applied.
  * - Verify that the Resource Node's value remains unchanged.
  * Cross-Reference id: [J]
  */
@@ -658,16 +671,18 @@ URM_TEST(ClientPermissionsVerification, {
  *       - Request should have a valid Priority i.e. either HIGH (0) or LOW (1) [D]
  * - Resource Level Tests
  *   - Verifier will iterate over all the Resources part of the Request, and perform the following
- *     tests on each of them. Note if any test fails for any (even one) Resource part of the Request,
- *     then the entire Request shall be dropped.
+ *     tests on each of them. Resources that fail verification are skipped, while the request is
+ *     accepted if at least one resource remains valid.
  *   - Sanity Tests
  *       - Each Resource with the specified ID should exist in the Resource Registry [E]
  *   - Application Tests
  *       - The configured value for the Resource should be in the Range LT, HT as specified by the
  *         Resource Config [F]
  *       - If the Resource has a core level conflict, then Logical to Physical Mapping happens
- *         as part of the Verifier, if the translation cannot be performed then the Request is dropped. [G]
- *       - If the Resource does not support tuning, then the Request will be dropped. [H]
+ *         as part of the Verifier. If translation cannot be performed, that Resource is skipped;
+ *         if no Resources remain valid, no Resource is applied. [G]
+ *       - If the Resource does not support tuning, then that Resource is skipped;
+ *         if no Resources remain valid, no Resource is applied. [H]
  *       - Check if the Resorce can be tuned in the current System mode. Note, each Resource can specify
  *         via Config, the list of Modes (for example: Display On, Doze) it can be tuned in. [I]
  *   - Permission Check:
@@ -740,8 +755,9 @@ URM_TEST(SignalClientPermissionChecksVerification, {
  * API under test: tuneSignal
  * - A client sends a Signal Request to Tune a Signal for some (possibly inf) duration
  * - Each Resource associated with the Signal Config has an associated Low Threshold (LT) and High Threshold (HT).
- * - If a Signal Config specifies a value which is (< LT) or (> HT) for any Resource, then the Reuqest
- *   should be rejected by the Signal Verifier
+ * - If a Signal Config specifies a value which is (< LT) or (> HT) for a Resource, then that
+ *   translated Resource is skipped. Since this signal maps to no other valid Resource here,
+ *   no Resource is applied.
  * - Verify that the Resource Node's value remains unchanged.
  * Cross-Reference id: [D]
  */
@@ -2477,7 +2493,7 @@ URM_TEST(TestWriteTo_sched_util_clamp_min_Node, {
  * API under test: Tune / Untune
  * - Issue 2 Concurrent Resource Tuner Resource Provisioning Requests, to modify the Resource
  *   sched_util_clamp_min
- * - Verify the Resource Node is Correctly updated to the higher of the 2 values,
+ * - Verify the Resource Node is Correctly updated to the lower of the 2 values,
  *   as the Resource has the "lower-is-better" policy.
  * - Verify that the Resource Node is reset once the Requests Expires (here both the Requests,
  *   have exactly the same duration).
@@ -2523,7 +2539,7 @@ URM_TEST(TestConcurrentWriteTo_sched_util_clamp_min_Node1, {
         int64_t handle = tuneResources(5000, RequestPriority::REQ_PRIORITY_HIGH, 1, resourceList);
         std::cout<<LOG_BASE<<"Handle Returned: "<<handle<<std::endl;
 
-        // Verify that the higher of the two configured values, i.e. 887 takes
+        // Verify that the lower of the two configured values, i.e. 799 takes
         // effect on the Resource Node.
         std::this_thread::sleep_for(std::chrono::seconds(1));
 
