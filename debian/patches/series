@@ -1,3 +1,2 @@
-fix-cmake-version.patch
 detect-libyaml-at-top-level.patch
 link-classifier-against-restunecore.patch
