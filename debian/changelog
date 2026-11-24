@@ -1,8 +1,12 @@
-userspace-resource-manager (0.4.12-0qli2~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.5.1-0qli1~) UNRELEASED; urgency=medium
 
+  [ Debusine Action Bot ]
   * Unreleased changes
 
- -- Debusine Action Bot <noreply@bot.invalid>  Mon, 05 Oct 2026 10:09:16 +0000
+  [ GitHub Service Bot ]
+  * New upstream release
+
+ -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Tue, 24 Nov 2026 12:21:14 +0000
 
 userspace-resource-manager (0.4.12-0qli1) forky; urgency=medium
 
