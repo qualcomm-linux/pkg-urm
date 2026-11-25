@@ -390,6 +390,9 @@ int64_t tuneResources(int64_t duration,
 
 - `resourceList` (`SysResource*`): List of Resources to be provisioned as part of the Request.
 
+**Validation behavior:**
+URM validates resources individually. If a request contains both valid and invalid resources, invalid resource entries are skipped and the remaining valid resources continue through request processing. For example, if a request contains two resources where the first resource targets a supported CPU frequency node with an in-range value, and the second resource targets an unsupported resource code or a value outside the configured thresholds, URM skips only the second resource and still applies the first one. If no valid resources remain after validation, no resource is applied for that request.
+
 **Returns:**
 `int64_t`
 - **A positive unique handle** identifying the issued request (used for future `retune` or `untune` operations)
@@ -1744,8 +1747,8 @@ Resource Tuner architecture is captured above.
 - As soon as the request is received on the server end, a handle is generated and returned to the client. This handle uniquely identifies the request and can be used for subsequent retune (retuneResources) or untune (untuneResources) API calls.
 - The request is submitted to the ThreadPool for async processing.
 - When the request is picked up by a worker thread (from the ThreadPool), it will decode the request message and then validate the request.
-- The request verifier, will run a series of checks on the request like permission checks, and on the resources part of the request, like config value bounds check.
-- Once request is verified, a duplicate check is performed, to verify if the client has already submitted the same request before. This is done so as to the improve system efficiency and performace.
+- The request verifier runs a series of checks on the request and on each resource in the request, including permission checks and resource configuration value bounds checks. Resource validation is performed per-resource: invalid resources are skipped, while any remaining valid resources continue through processing. If all resources in the request are invalid, no resource is applied.
+- Once the request has at least one valid resource, a duplicate check is performed to verify if the client has already submitted the same request before. This is done so as to improve system efficiency and performance.
 - Next the request is added to an queue, which is essentially PriorityQueue, which orders requests based on their priorities (for more details on Priority Levels, refer the next Section). This is done so that the request with the highest priority is always served first.
 - To handle concurrent requests for the same resource, we maintain resource level linked lists of pending requests, which are ordered according to the request priority and resource policy. This ensures that the request with the higher priority will always be applied first. For two requests with the same priority, the application order will depend on resource policy. For example, in case of resource with "higher is better" policy, the request with a higher configuration value for the resource shall take effect first.
 - Once a request reaches the head of the resource level linked list, it is applied, i.e. the config value specified by this request for the resource takes effect on the corresponding sysfs node.
@@ -1756,7 +1759,7 @@ Resource Tuner architecture is captured above.
 
 ## 7.3. Client-Level Permissions
 
-Certain resources can be tuned only by system clients and some which have no such restrictions and can be tuned even by third party clients. The client permissions are dynamically determined, the first time it makes a request. If a client with third party permissions tries to tune a resource, which allows only clients with system permissions to tune it, then the request shall be dropped.
+Certain resources can be tuned only by system clients and some which have no such restrictions and can be tuned even by third party clients. The client permissions are dynamically determined, the first time it makes a request. If a client with third party permissions tries to tune a resource that only allows system clients, that resource entry is skipped. Other valid resources in the same request can still be processed. For example, if a third-party client sends one resource that is allowed for third-party clients and another resource that is system-only, URM applies the third-party-allowed resource and skips the system-only resource. If no valid resources remain, no resource is applied for that request.
 
 ## 7.4. Resource-Level Policies
 
@@ -1880,6 +1883,6 @@ For questions, suggestions, or contributions, feel free to reach out:
 
 # 9. License
 
-This project is licensed under the BSD 3-Clause Clear License.
+This project is licensed under the BSD 3-Clause License.
 
 <div style="page-break-after: always;"></div>
