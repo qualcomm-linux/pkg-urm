@@ -1,12 +1,16 @@
 userspace-resource-manager (0.5.1-0qli1~) UNRELEASED; urgency=medium
 
-  [ Debusine Action Bot ]
-  * Unreleased changes
-
   [ GitHub Service Bot ]
-  * New upstream release
+  * New upstream release 0.5.1
 
- -- GitHub Service Bot <githubservice@qti.qualcomm.com>  Tue, 24 Nov 2026 12:21:14 +0000
+  [ Kartik Nema ]
+  * Drop patches which have been upstreamed.
+    - d/p/fix-cmake-version.patch
+
+  [ Lukas Märdian ]
+  * d/copyright: Drop CI that is not tracked by the Debian package.
+
+ -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Wed, 25 Nov 2026 09:48:33 +0100
 
 userspace-resource-manager (0.4.12-0qli1) forky; urgency=medium
 
