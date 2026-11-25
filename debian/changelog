@@ -1,4 +1,4 @@
-userspace-resource-manager (0.5.1-0qli1~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.5.1-0qli1) forky; urgency=medium
 
   [ GitHub Service Bot ]
   * New upstream release 0.5.1
@@ -10,7 +10,7 @@ userspace-resource-manager (0.5.1-0qli1~) UNRELEASED; urgency=medium
   [ Lukas Märdian ]
   * d/copyright: Drop CI that is not tracked by the Debian package.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Wed, 25 Nov 2026 09:48:33 +0100
+ -- Debusine Action Bot <noreply@bot.invalid>  Wed, 25 Nov 2026 09:04:01 +0000
 
 userspace-resource-manager (0.4.12-0qli1) forky; urgency=medium
 
