@@ -449,7 +449,7 @@ void Logger::typeLog(CommonMessageTypes type, const std::string& funcName, ...) 
 
         case CommonMessageTypes::VERIFIER_INVALID_OPCODE:
             vsnprintf(buffer, sizeof(buffer),
-                      "Invalid Opcode [0x%08x], Dropping Request.", args);
+                      "Invalid Opcode [0x%08x], Skipping Resource.", args);
 
             Logger::log(LOG_ERR, "URM_REQUEST_VERIFIER", funcName, buffer);
             break;
@@ -487,7 +487,7 @@ void Logger::typeLog(CommonMessageTypes type, const std::string& funcName, ...) 
         case CommonMessageTypes::VERIFIER_VALUE_OUT_OF_BOUNDS:
             vsnprintf(buffer, sizeof(buffer),
                       "Config Value [%d] does not fall in the Allowed Range " \
-                      "for the Resource [0x%08x], Dropping Request.", args);
+                      "for the Resource [0x%08x], Skipping Resource.", args);
 
             Logger::log(LOG_ERR, "URM_REQUEST_VERIFIER", funcName, buffer);
             break;
@@ -495,7 +495,7 @@ void Logger::typeLog(CommonMessageTypes type, const std::string& funcName, ...) 
         case CommonMessageTypes::VERIFIER_NOT_SUFFICIENT_PERMISSION:
             vsnprintf(buffer, sizeof(buffer),
                       "Permission Check Failed for Resource [0x%08x], "  \
-                      "Dropping Request", args);
+                      "Skipping Resource", args);
 
             Logger::log(LOG_ERR, "URM_REQUEST_VERIFIER", funcName, buffer);
             break;
@@ -525,21 +525,28 @@ void Logger::typeLog(CommonMessageTypes type, const std::string& funcName, ...) 
         case CommonMessageTypes::VERIFIER_LOGICAL_TO_PHYSICAL_MAPPING_FAILED:
             vsnprintf(buffer, sizeof(buffer),
                       "Logical to Physical Core / Cluster Mapping for the "  \
-                      "Resource [0x%08x], Failed. Dropping Request", args);
+                      "Resource [0x%08x], Failed. Skipping Resource", args);
 
             Logger::log(LOG_ERR, "URM_REQUEST_VERIFIER", funcName, buffer);
             break;
 
         case CommonMessageTypes::VERIFIER_INVALID_LOGICAL_CORE:
              vsnprintf(buffer, sizeof(buffer),
-                       "Invalid Logical Core value: [%d], dropping Request", args);
+                       "Invalid Logical Core value: [%d], Skipping Resource", args);
 
             Logger::log(LOG_ERR, "URM_REQUEST_VERIFIER", funcName, buffer);
             break;
 
         case CommonMessageTypes::VERIFIER_INVALID_LOGICAL_CLUSTER:
              vsnprintf(buffer, sizeof(buffer),
-                       "Invalid Logical Cluster value: [%d], dropping Request", args);
+                       "Invalid Logical Cluster value: [%d], Skipping Resource", args);
+
+            Logger::log(LOG_ERR, "URM_REQUEST_VERIFIER", funcName, buffer);
+            break;
+
+        case CommonMessageTypes::VERIFIER_NO_VALID_RESOURCES:
+             vsnprintf(buffer, sizeof(buffer),
+                       "No valid resources remain for Request [%lld] after verification, Dropping Request.", args);
 
             Logger::log(LOG_ERR, "URM_REQUEST_VERIFIER", funcName, buffer);
             break;

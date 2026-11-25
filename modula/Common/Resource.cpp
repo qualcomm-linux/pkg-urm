@@ -14,6 +14,7 @@ Resource::Resource(const Resource& resource) {
 
     this->mResInfo = resource.getResInfo();
     this->mOptionalInfo = resource.getOptionalInfo();
+    this->mResAction = resource.getResAction();
 
     for(int32_t i = 0; i < this->mNumValues; i++) {
         if(RC_IS_NOTOK(this->setValueAt(i, resource.getValueAt(i)))) {
@@ -52,6 +53,10 @@ int32_t Resource::getValueAt(int32_t index) const {
     return this->mResValue.valueArr[index];
 }
 
+uint8_t Resource::getResAction() const {
+    return this->mResAction;
+}
+
 void Resource::setCoreValue(int32_t core) {
     this->mResInfo = (this->mResInfo ^ this->getCoreValue()) | core;
 }
@@ -77,6 +82,10 @@ void Resource::setNumValues(int32_t numValues) {
     if(this->mNumValues > 2) {
         this->mResValue.valueArr = new(std::nothrow) int32_t[this->mNumValues];
     }
+}
+
+void Resource::setResAction(uint8_t action) {
+    this->mResAction = action;
 }
 
 ErrCode Resource::setValueAt(int32_t index, int32_t value) {
