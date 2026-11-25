@@ -1,8 +1,9 @@
-userspace-resource-manager (0.5.1-0qli1~bpo13+1~) UNRELEASED; urgency=medium
+userspace-resource-manager (0.5.1-0qli1~bpo13+1) trixie; urgency=medium
 
+  [ Lukas Märdian ]
   * Rebuild for trixie.
 
- -- Lukas Märdian <lukas.maerdian@oss.qualcomm.com>  Wed, 25 Nov 2026 10:10:04 +0100
+ -- Debusine Action Bot <noreply@bot.invalid>  Wed, 25 Nov 2026 09:21:51 +0000
 
 userspace-resource-manager (0.5.1-0qli1) forky; urgency=medium
 
